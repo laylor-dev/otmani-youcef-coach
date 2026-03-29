@@ -27,6 +27,53 @@ const oswald = Oswald({
 
 // ... wait, metadata can also be generated dynamically with `generateMetadata`, but for now I'll just change the layout.
 
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ locale: string }> 
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const isArabic = resolvedParams.locale === 'ar';
+  
+  const title = isArabic 
+    ? "يوسف عثماني | التدريب الرياضي الاحترافي" 
+    : "Youcef Otmani | Elite Performance Coaching";
+    
+  const description = isArabic 
+    ? "تدريب شامل يجمع بين العلم، البيانات، والتحليل الحيوي. ارتقِ بأدائك." 
+    : "More than just a program, a methodology forged through experience and science. Unlock your ultimate athletic potential.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      siteName: 'YouOtmani Coaching',
+      images: [
+        {
+          url: '/hero.png', // Uses the public logo/image
+          width: 1200,
+          height: 630,
+        },
+      ],
+      locale: isArabic ? 'ar_DZ' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/hero.png'], 
+    },
+    icons: {
+      icon: '/icon.png',
+      apple: '/icon.png',
+    }
+  };
+}
+
+
 export default async function RootLayout({
   children,
   params
