@@ -43,7 +43,6 @@ export default function ContactPage() {
       {/* LEFT — Cinematic Form Section */}
       <div className="flex-1 relative z-10 px-6 md:px-16 pt-32 pb-24 flex flex-col justify-center">
         <motion.div
-           initial={{ opacity: 0, x: -30 }}
            animate={{ opacity: 1, x: 0 }}
            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >

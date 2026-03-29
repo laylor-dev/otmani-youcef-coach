@@ -12,13 +12,10 @@ import { ArrowRight, ChevronDown, Zap, Target, Brain } from "lucide-react";
 function SplitText({ text, className, locale }: { text: string; className?: string; locale?: string }) {
   if (!text) return null;
   
-  // For Arabic, splitting by characters breaks the connected script.
-  // We'll reveal the whole string or split by words instead.
   if (locale === 'ar') {
     return (
       <span className={`inline-block overflow-hidden ${className ?? ""}`}>
         <motion.span
-          initial={{ y: "110%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           transition={{
             duration: 0.8,
@@ -38,7 +35,6 @@ function SplitText({ text, className, locale }: { text: string; className?: stri
       {text.split("").map((char, i) => (
         <motion.span
           key={i}
-          initial={{ y: "110%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           transition={{
             duration: 0.7,
@@ -153,7 +149,6 @@ export default function Home() {
           className="relative z-10 px-6 md:px-16 w-full md:w-[60%] lg:w-[55%] pt-32 pb-12 flex flex-col justify-end h-full"
         >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-3 px-5 py-2 mb-10 border border-white/10 bg-white/5 backdrop-blur-md w-fit"
@@ -181,7 +176,6 @@ export default function Home() {
             </div>
             <div className="overflow-hidden mt-6">
               <motion.span
-                initial={{ y: "100%", opacity: 0 }}
                 animate={{ y: "0%", opacity: 1 }}
                 transition={{ duration: 1, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
                 className="block text-[clamp(0.9rem,3vw,1.8rem)] font-sans font-light tracking-[0.35em] text-neutral-400 uppercase"
@@ -192,9 +186,8 @@ export default function Home() {
           </h1>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 space-y-3"
           >
             <p className="text-sm md:text-base font-primary font-bold tracking-[0.08em] text-[#FF2A2A] uppercase">
@@ -296,11 +289,10 @@ export default function Home() {
         className="relative w-full min-h-screen flex items-center px-6 md:px-16 py-32 overflow-hidden"
       >
         <div className="absolute left-10 lg:left-[5vw] top-0 bottom-0 w-[45%] hidden lg:block overflow-hidden">
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={isManifestoVisible ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full w-full"
+          <motion.div 
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0"
           >
             <Image
               src="/coach-1.png"
@@ -486,7 +478,6 @@ export default function Home() {
             ].map((media, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}

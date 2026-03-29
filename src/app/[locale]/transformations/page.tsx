@@ -45,7 +45,6 @@ export default function TransformationsPage() {
         {/* LEFT — Copy */}
         <div className="flex-1 flex flex-col justify-center px-6 md:px-16 py-32 lg:py-0 relative z-10">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
@@ -88,7 +87,6 @@ export default function TransformationsPage() {
         {/* RIGHT — Featured Image with Parallax & Glow */}
         <div className="flex-1 relative min-h-[60vh] lg:min-h-screen overflow-hidden">
           <motion.div 
-            initial={{ scale: 1.1, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0"
@@ -134,7 +132,6 @@ export default function TransformationsPage() {
             {TRANSFORMATIONS.slice(0, visibleCount).map((item, idx) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: (idx % 3) * 0.1, ease: [0.16, 1, 0.3, 1] }}
