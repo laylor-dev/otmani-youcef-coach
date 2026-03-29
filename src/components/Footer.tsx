@@ -77,6 +77,37 @@ export function Footer() {
             >
               <Tv className="w-4 h-4" />
             </a>
+            <a
+              href="https://www.linkedin.com/in/youcef-otmani-7b3807356/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="w-10 h-10 rounded-lg bg-white/5 border border-white/8 flex items-center justify-center text-neutral-500 transition-all font-primary"
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = accentColor;
+                e.currentTarget.style.borderColor = accentColor;
+                e.currentTarget.style.color = "white";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+                e.currentTarget.style.color = "rgb(115,115,115)";
+              }}
+            >
+              <svg 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="w-4 h-4"
+              >
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
           </div>
         </div>
 

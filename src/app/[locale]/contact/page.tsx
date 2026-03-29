@@ -165,6 +165,28 @@ export default function ContactPage() {
                     </div>
                   </a>
 
+                  <a href="https://www.linkedin.com/in/youcef-otmani-7b3807356/" target="_blank" rel="noreferrer" className="flex items-center gap-5 group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
+                      <svg 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        className="w-5 h-5 text-white"
+                      >
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">LinkedIn</div>
+                      <div className="text-white text-lg font-primary uppercase tracking-wider">Youcef Otmani</div>
+                    </div>
+                  </a>
+
                   <div className="flex items-center gap-5 group relative">
                     <a href="mailto:contact@youotmani.dz" className="flex items-center gap-5 flex-1">
                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
