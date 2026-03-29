@@ -308,8 +308,7 @@ export default function Home() {
 
         <div className="relative z-10 ml-auto max-w-xl lg:max-w-lg">
           <motion.span
-            initial={{ opacity: 0, x: 30 }}
-            animate={isManifestoVisible ? { opacity: 1, x: 0 } : {}}
+            animate={isManifestoVisible ? { opacity: 1, x: 0 } : { opacity: 1 }}
             transition={{ duration: 0.6 }}
             className="text-[#FF2A2A] font-primary font-bold tracking-[0.3em] text-xs uppercase"
           >
@@ -317,8 +316,7 @@ export default function Home() {
           </motion.span>
 
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={isManifestoVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="mt-4 text-3xl md:text-5xl lg:text-6xl font-primary font-black uppercase tracking-tighter leading-[0.88] text-white"
           >
@@ -330,8 +328,7 @@ export default function Home() {
             {[m("p1"), m("p2"), m("p3")].map((text, i) => (
               <motion.p
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isManifestoVisible ? { opacity: 1, y: 0 } : {}}
+                animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
                 className="text-neutral-400 leading-relaxed text-lg"
               >
@@ -341,8 +338,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isManifestoVisible ? { opacity: 1, y: 0 } : {}}
+            animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.7 }}
             className="mt-12"
           >

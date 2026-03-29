@@ -162,7 +162,8 @@ export function Navbar() {
         {/* MOBILE TOGGLE */}
         <motion.button
           whileTap={{ scale: 0.9 }}
-          className="md:hidden z-50 w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg bg-black/50 backdrop-blur-md"
+          className="md:hidden z-50 w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg bg-black/50 backdrop-blur-md backdrop-filter-none"
+          style={{ WebkitBackdropFilter: 'blur(12px)' }}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -185,10 +186,10 @@ export function Navbar() {
         {menuOpen && (
           <motion.div
             key="mobile-menu"
-            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 bg-black flex flex-col items-start justify-center px-8"
           >
             {/* Red line accent */}
