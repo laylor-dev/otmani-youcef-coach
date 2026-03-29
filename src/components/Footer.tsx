@@ -105,8 +105,8 @@ export function Footer() {
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" style={{ color: accentColor }} />
                 <span>Alger, Algérie</span>
               </div>
-              <div className="text-sm text-neutral-500 space-y-1.5">
-                <p>contact@youotmani.dz</p>
+              <div className="text-sm text-neutral-500 space-y-1.5 font-primary tracking-wider">
+                <a href="mailto:contact@youotmani.dz" className="hover:text-white transition-colors block uppercase">contact@youotmani.dz</a>
                 <p>+213 540 44 51 41</p>
               </div>
             </div>
