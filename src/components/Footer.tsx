@@ -1,8 +1,9 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { Camera, Tv, MapPin, ArrowUpRight } from "lucide-react";
+import { Camera, Tv, MapPin, Copy, Check } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,6 +14,14 @@ export function Footer() {
   const isProductPage = pathname?.includes("/product");
   const accentColor = isProductPage ? "#FF6B00" : "#FF2A2A";
   const accentColorHover = isProductPage ? "#FF8533" : "#FF4D4D";
+
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("contact@youotmani.dz");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <footer className="w-full bg-[#030303] border-t border-white/5">
@@ -105,8 +114,27 @@ export function Footer() {
                 <MapPin className="w-4 h-4 shrink-0 mt-0.5" style={{ color: accentColor }} />
                 <span>Alger, Algérie</span>
               </div>
-              <div className="text-sm text-neutral-500 space-y-1.5 font-primary tracking-wider">
-                <a href="mailto:contact@youotmani.dz" className="hover:text-white transition-colors block uppercase">contact@youotmani.dz</a>
+              <div className="text-sm text-neutral-500 space-y-2 font-primary tracking-wider">
+                <div className="relative group/mail flex items-center gap-2">
+                  <a 
+                    href="mailto:contact@youotmani.dz" 
+                    className="hover:text-white transition-colors block uppercase"
+                  >
+                    contact@youotmani.dz
+                  </a>
+                  <button 
+                    onClick={copyEmail}
+                    className="p-1.5 rounded-md bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-neutral-500 hover:text-white"
+                    title="Copy Email"
+                  >
+                    {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                  </button>
+                  {copied && (
+                    <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-[#FF2A2A] text-white text-[10px] font-bold uppercase tracking-tighter rounded pointer-events-none animate-in fade-in zoom-in duration-200">
+                      Copied!
+                    </span>
+                  )}
+                </div>
                 <p>+213 540 44 51 41</p>
               </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, MessageCircle, Globe, Mail, MapPin, Clock, Phone, CheckCircle2 } from "lucide-react";
+import { Send, MessageCircle, Globe, Mail, MapPin, Clock, Phone, CheckCircle2, Copy, Check } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -18,7 +18,15 @@ const GOALS = [
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
   const t = useTranslations("Contact");
+
+  const copyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("contact@youotmani.dz");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,23 +144,53 @@ export default function ContactPage() {
           >
             <div>
               <h3 className="text-white font-primary font-black uppercase text-2xl tracking-tight mb-6">{t("direct_channels")}</h3>
-              <div className="space-y-5">
-                {[
-                  { icon: MessageCircle, label: "WhatsApp", value: "+213 540 44 51 41", href: "https://wa.me/213540445141" },
-                  { icon: Globe, label: "Instagram", value: "@youotmani", href: "https://instagram.com/youotmani" },
-                  { icon: Mail, label: "Email", value: "contact@youotmani.dz", href: "mailto:contact@youotmani.dz" },
-                ].map((item) => (
-                  <a key={item.label} href={item.href} target="_blank" rel="noreferrer" className="flex items-center gap-5 group">
+                <div className="space-y-5">
+                  <a href="https://wa.me/213540445141" target="_blank" rel="noreferrer" className="flex items-center gap-5 group">
                     <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
-                      <item.icon className="w-5 h-5 text-white" />
+                      <MessageCircle className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">{item.label}</div>
-                      <div className="text-white text-lg font-primary uppercase tracking-wider">{item.value}</div>
+                      <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">WhatsApp</div>
+                      <div className="text-white text-lg font-primary uppercase tracking-wider">+213 540 44 51 41</div>
                     </div>
                   </a>
-                ))}
-              </div>
+
+                  <a href="https://instagram.com/youotmani" target="_blank" rel="noreferrer" className="flex items-center gap-5 group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
+                      <Globe className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">Instagram</div>
+                      <div className="text-white text-lg font-primary uppercase tracking-wider">@youotmani</div>
+                    </div>
+                  </a>
+
+                  <div className="flex items-center gap-5 group relative">
+                    <a href="mailto:contact@youotmani.dz" className="flex items-center gap-5 flex-1">
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
+                        <Mail className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">Email</div>
+                        <div className="text-white text-lg font-primary uppercase tracking-wider">contact@youotmani.dz</div>
+                      </div>
+                    </a>
+                    
+                    <button 
+                      onClick={copyEmail}
+                      className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all text-neutral-500 hover:text-white"
+                      title="Copy Email"
+                    >
+                      {copiedEmail ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                    </button>
+
+                    {copiedEmail && (
+                      <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-[#FF2A2A] text-white text-[10px] font-bold uppercase tracking-widest rounded shadow-xl animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        Copied to Clipboard!
+                      </span>
+                    )}
+                  </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6 pt-10 border-t border-white/10">
