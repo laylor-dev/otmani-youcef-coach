@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #FF2A2A;
+  --color-primary-dark: #D32F2F;
+  --color-background: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-light: #121212;
+  --color-foreground: #ffffff;
+  --color-muted: #A3A3A3;
+  --font-primary: var(--font-primary);
+  --font-sans: var(--font-sans);
+  /* Design token: zero radius everywhere for the sharp angular brand */
+  --radius: 0px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --grid-border: rgba(255, 255, 255, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  /* Enforce zero border-radius across all elements by default — use --radius variable to override */
+  border-radius: var(--radius, 0) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* Global grid structure helper */
+.grid-line-h {
+  position: relative;
+}
+.grid-line-h::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--grid-border);
+}
+
+/* 3D perspective container */
+.perspective-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* Premium text selection */
+::selection {
+  background-color: #FF2A2A;
+  color: #000000;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF2A2A;
+}
+
+/* Clip path reveal animation */
+.clip-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.clip-reveal.visible {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-inner {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+/* Video overlay gradient */
+.video-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2) 0%,
+    rgba(0,0,0,0.5) 50%,
+    rgba(0,0,0,1) 100%
+  );
+}
+
+/* Spline container */
+.spline-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.spline-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Section separator lines — horizontal grid lines between sections */
+section {
+  border-bottom: 1px solid var(--grid-border);
 }
