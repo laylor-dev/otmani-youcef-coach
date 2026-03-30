@@ -124,8 +124,7 @@ export default function PricingPage() {
           <div ref={headerRef}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-center"
             >
@@ -148,8 +147,7 @@ export default function PricingPage() {
           {/* DURATION TOGGLE */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="mt-16 inline-flex items-center p-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl relative"
           >
@@ -185,8 +183,7 @@ export default function PricingPage() {
               <motion.div
                 key={offer.target}
                 initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + idx * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               >
                 <MagneticCard
@@ -231,8 +228,7 @@ export default function PricingPage() {
                     <motion.div
                       key={duration}
                       initial={{ opacity: 0, y: -10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
                       className="flex flex-col gap-1.5"
                     >

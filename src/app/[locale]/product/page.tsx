@@ -45,8 +45,7 @@ export default function ProductPage() {
         <div className="relative z-10 w-full px-6 md:px-16 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-[#FF6B00]/30 bg-[#FF6B00]/10 backdrop-blur-md" style={{ '--radius': '9999px' } as any}>
@@ -129,8 +128,7 @@ export default function ProductPage() {
         <div className="flex-1 flex flex-col justify-center px-6 md:px-16 py-24">
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-white/10 bg-white/5" style={{ '--radius': '9999px' } as any}>
@@ -156,9 +154,8 @@ export default function ProductPage() {
                 <motion.div
                   key={m.label}
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
                   className="p-4 rounded-xl border border-white/8 bg-white/4"
                   style={{ '--radius': '12px' } as any}
                 >
