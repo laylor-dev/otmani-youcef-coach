@@ -44,7 +44,8 @@ export default function ContactPage() {
       <div className="flex-1 relative z-10 px-6 md:px-16 pt-32 pb-24 flex flex-col justify-center">
         <motion.div
            initial={{ opacity: 0, x: -30 }}
-           animate={{ opacity: 1, x: 0 }}
+           whileInView={{ opacity: 1, x: 0 }}
+           viewport={{ once: true }}
            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-flex items-center gap-3 px-4 py-1.5 mb-8 rounded-full border border-[#FF2A2A]/30 bg-[#FF2A2A]/10 backdrop-blur-md">
@@ -66,7 +67,8 @@ export default function ContactPage() {
           {submitted ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               className="p-12 rounded-3xl bg-white/5 border border-white/10 text-center"
             >
               <div className="w-20 h-20 rounded-full bg-[#FF2A2A]/15 border border-[#FF2A2A]/30 flex items-center justify-center mx-auto mb-6">
@@ -138,7 +140,8 @@ export default function ContactPage() {
         <div className="absolute inset-0 z-10 p-6 md:p-16 flex flex-col justify-end">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.5 }}
             className="space-y-10"
           >

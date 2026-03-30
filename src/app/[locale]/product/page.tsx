@@ -45,7 +45,8 @@ export default function ProductPage() {
         <div className="relative z-10 w-full px-6 md:px-16 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-[#FF6B00]/30 bg-[#FF6B00]/10 backdrop-blur-md" style={{ '--radius': '9999px' } as any}>
