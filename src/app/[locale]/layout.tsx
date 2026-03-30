@@ -103,8 +103,8 @@ export default async function RootLayout({
       <body className="font-sans bg-black text-white" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <GridOverlay />
+          <Navbar />
           <SmoothScroll>
-            <Navbar />
             <PageTransition>
               <main className="relative flex-1 flex flex-col">
                 {children}

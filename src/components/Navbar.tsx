@@ -160,9 +160,8 @@ export function Navbar() {
         </div>
 
         {/* MOBILE TOGGLE */}
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          className="md:hidden z-50 w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg bg-black/50 backdrop-blur-md backdrop-filter-none"
+        <button
+          className="md:hidden z-[1001] w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg bg-black/50 backdrop-blur-md cursor-pointer pointer-events-auto active:scale-95"
           style={{ WebkitBackdropFilter: 'blur(12px)' }}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
@@ -178,7 +177,7 @@ export function Navbar() {
               </motion.span>
             )}
           </AnimatePresence>
-        </motion.button>
+        </button>
       </motion.nav>
 
       {/* MOBILE FULLSCREEN MENU */}
@@ -190,7 +189,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-black flex flex-col items-start justify-center px-8"
+            className="fixed inset-0 z-[100] bg-black flex flex-col items-start justify-center px-8"
           >
             {/* Red line accent */}
             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF2A2A] to-transparent" />
