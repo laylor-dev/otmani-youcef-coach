@@ -44,6 +44,7 @@ export default function ProductPage() {
         {/* Hero text over video */}
         <div className="relative z-10 w-full px-6 md:px-16 pb-24">
           <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
@@ -126,6 +127,7 @@ export default function ProductPage() {
         {/* RIGHT — Copy + Macros + CTA */}
         <div className="flex-1 flex flex-col justify-center px-6 md:px-16 py-24">
           <motion.div
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -152,6 +154,7 @@ export default function ProductPage() {
               {macros.map((m, i) => (
                 <motion.div
                   key={m.label}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}

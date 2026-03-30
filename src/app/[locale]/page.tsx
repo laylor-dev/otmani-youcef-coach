@@ -7,6 +7,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import React, { useRef } from "react";
 import { MagneticCard } from "@/components/MagneticCard";
 import { ArrowRight, ChevronDown, Zap, Target, Brain } from "lucide-react";
+import { RevealText, RevealWords } from "@/components/RevealText";
 
 // ── Staggered letter reveal ──────────────────────────────────────────────────
 function SplitText({ text, className, locale }: { text: string; className?: string; locale?: string }) {
@@ -149,6 +150,7 @@ export default function Home() {
           className="relative z-10 px-6 md:px-16 w-full md:w-[60%] lg:w-[55%] pt-32 pb-12 flex flex-col justify-end h-full"
         >
           <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center gap-3 px-5 py-2 mb-10 border border-white/10 bg-white/5 backdrop-blur-md w-fit"
@@ -186,6 +188,7 @@ export default function Home() {
           </h1>
 
           <motion.div
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="mt-8 space-y-3"
@@ -290,7 +293,9 @@ export default function Home() {
       >
         <div className="absolute left-10 lg:left-[5vw] top-0 bottom-0 w-[45%] hidden lg:block overflow-hidden">
           <motion.div 
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 1.05, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0"
           >
@@ -307,48 +312,35 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 ml-auto max-w-xl lg:max-w-lg">
-          <motion.span
-            animate={isManifestoVisible ? { opacity: 1, x: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="text-[#FF2A2A] font-primary font-bold tracking-[0.3em] text-xs uppercase"
-          >
+          <RevealText delay={0} direction="up" className="text-[#FF2A2A] font-primary font-bold tracking-[0.3em] text-xs uppercase">
             {m("label")}
-          </motion.span>
+          </RevealText>
 
-          <motion.h2
-            animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="mt-4 text-3xl md:text-5xl lg:text-6xl font-primary font-black uppercase tracking-tighter leading-[0.88] text-white"
-          >
-            {m("title_line1")} <br />
-            <span className="text-neutral-500">{m("title_line2")}</span>
-          </motion.h2>
+          <div className="mt-4 text-3xl md:text-5xl lg:text-6xl font-primary font-black uppercase tracking-tighter leading-[0.88] text-white">
+            <RevealWords text={m("title_line1")} delay={0.1} /> <br />
+            <span className="text-neutral-500"><RevealWords text={m("title_line2")} delay={0.2} /></span>
+          </div>
 
           <div className="mt-8 space-y-6">
             {[m("p1"), m("p2"), m("p3")].map((text, i) => (
-              <motion.p
+              <RevealText
                 key={i}
-                animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
+                delay={0.3 + i * 0.15}
                 className="text-neutral-400 leading-relaxed text-lg"
               >
                 {text}
-              </motion.p>
+              </RevealText>
             ))}
           </div>
 
-          <motion.div
-            animate={isManifestoVisible ? { opacity: 1, y: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-12"
-          >
+          <RevealText delay={0.8} direction="left" className="mt-12">
             <Link
               href="/transformations"
               className="group inline-flex items-center gap-3 text-white font-primary font-bold tracking-[0.2em] uppercase text-sm border-b-2 border-[#FF2A2A] pb-1 hover:gap-5 transition-all"
             >
               {m("cta")} <ArrowRight className="w-4 h-4 text-[#FF2A2A]" />
             </Link>
-          </motion.div>
+          </RevealText>
         </div>
       </section>
 
@@ -362,7 +354,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={isPillarsVisible ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7 }}
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20"
           >
@@ -390,7 +383,8 @@ export default function Home() {
                 <motion.div
                   key={num}
                   initial={{ opacity: 0, y: 50 }}
-                  animate={isPillarsVisible ? { opacity: 1, y: 0 } : {}}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <MagneticCard

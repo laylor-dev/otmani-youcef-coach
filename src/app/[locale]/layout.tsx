@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { PageTransition } from "@/components/PageTransition";
 import { GridOverlay } from "@/components/GridOverlay";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -110,6 +111,7 @@ export default async function RootLayout({
       <body className="font-sans bg-black text-white" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <GridOverlay />
+          <ScrollToTop />
           <Navbar />
           <SmoothScroll>
             <PageTransition>
