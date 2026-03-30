@@ -43,6 +43,18 @@ export function Navbar() {
     setMenuOpen(false);
   }, []);
 
+  // For iOS: onTouchEnd fires reliably before the 300ms click delay.
+  // We call preventDefault() to stop the ghost click that would fire after.
+  const handleHamburgerTouch = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    toggleMenu();
+  }, [toggleMenu]);
+
+  const handleCloseTouch = useCallback((e: React.TouchEvent) => {
+    e.preventDefault();
+    closeMenu();
+  }, [closeMenu]);
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -91,12 +103,15 @@ export function Navbar() {
       {/* NAV BAR */}
       <nav
         className={clsx(
-          "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-500",
+          "fixed top-0 left-0 right-0 flex items-center justify-between px-6 md:px-10 transition-all duration-500",
           scrolled
             ? "py-3 bg-black/80 backdrop-blur-xl border-b border-white/5"
             : "py-5 bg-transparent"
         )}
-        style={{ WebkitBackdropFilter: scrolled ? "blur(20px)" : "none" }}
+        style={{
+          zIndex: 9999,
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+        }}
       >
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
@@ -200,6 +215,7 @@ export function Navbar() {
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={toggleMenu}
+          onTouchEnd={handleHamburgerTouch}
           className="md:hidden"
           style={{
             position: "relative",
@@ -303,7 +319,7 @@ export function Navbar() {
             bottom: 0,
             width: "100%",
             height: "100%",
-            zIndex: 150,
+            zIndex: 9000,
             background: "#000",
             display: "flex",
             flexDirection: "column",
@@ -337,6 +353,7 @@ export function Navbar() {
             type="button"
             aria-label="Close menu"
             onClick={closeMenu}
+            onTouchEnd={handleCloseTouch}
             style={{
               position: "absolute",
               top: 20,
