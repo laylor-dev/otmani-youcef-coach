@@ -49,15 +49,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when menu is open
+  // iOS-safe body scroll lock
+  // Using scrollY trick because overflow:hidden on body breaks position:fixed on iOS Safari
   useEffect(() => {
     if (menuOpen) {
-      document.body.style.overflow = "hidden";
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
     } else {
-      document.body.style.overflow = "";
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
     }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
     };
   }, [menuOpen]);
 
@@ -181,35 +193,49 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* MOBILE HAMBURGER BUTTON — plain button, no framer-motion wrapper */}
+        {/* MOBILE HAMBURGER BUTTON */}
         <button
           id="mobile-menu-toggle"
           type="button"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={toggleMenu}
-          className="md:hidden relative z-[200] flex items-center justify-center"
+          className="md:hidden"
           style={{
-            width: 44,
-            height: 44,
-            background: "rgba(0,0,0,0.6)",
-            border: "1px solid rgba(255,255,255,0.12)",
-            borderRadius: 8,
+            position: "relative",
+            zIndex: 200,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 48,
+            height: 48,
+            minWidth: 48,
+            minHeight: 48,
+            background: "rgba(0,0,0,0.7)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            borderRadius: 0,
             cursor: "pointer",
+            /* iOS Safari critical fixes */
             WebkitTapHighlightColor: "transparent",
+            WebkitAppearance: "none",
             touchAction: "manipulation",
             userSelect: "none",
+            WebkitUserSelect: "none",
+            pointerEvents: "auto",
             flexShrink: 0,
+            outline: "none",
+            padding: 0,
           }}
         >
-          {/* Hamburger / X drawn in pure CSS — no animation library */}
+          {/* Hamburger / X icon */}
           <span
             aria-hidden="true"
             style={{
               display: "block",
               position: "relative",
-              width: 20,
-              height: 14,
+              width: 22,
+              height: 16,
+              pointerEvents: "none",
             }}
           >
             {/* Top bar */}
@@ -224,6 +250,7 @@ export function Navbar() {
                 borderRadius: 2,
                 transform: menuOpen ? "translateY(-50%) rotate(45deg)" : "none",
                 transition: "top 0.25s, transform 0.25s",
+                pointerEvents: "none",
               }}
             />
             {/* Middle bar */}
@@ -239,6 +266,7 @@ export function Navbar() {
                 transform: "translateY(-50%)",
                 opacity: menuOpen ? 0 : 1,
                 transition: "opacity 0.15s",
+                pointerEvents: "none",
               }}
             />
             {/* Bottom bar */}
@@ -253,6 +281,7 @@ export function Navbar() {
                 borderRadius: 2,
                 transform: menuOpen ? "translateY(50%) rotate(-45deg)" : "none",
                 transition: "bottom 0.25s, transform 0.25s",
+                pointerEvents: "none",
               }}
             />
           </span>
@@ -268,7 +297,12 @@ export function Navbar() {
           aria-label="Navigation menu"
           style={{
             position: "fixed",
-            inset: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100%",
+            height: "100%",
             zIndex: 150,
             background: "#000",
             display: "flex",
@@ -277,7 +311,12 @@ export function Navbar() {
             justifyContent: "center",
             padding: "0 2rem",
             overflowY: "auto",
+            /* iOS momentum scroll */
             WebkitOverflowScrolling: "touch",
+            /* Ensure overlay is above everything and tappable */
+            pointerEvents: "auto",
+            /* Fix iOS viewport */
+            minHeight: "-webkit-fill-available",
           }}
         >
           {/* Red accent line */}

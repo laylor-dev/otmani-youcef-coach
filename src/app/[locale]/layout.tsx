@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Oswald } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Navbar } from "@/components/Navbar";
@@ -12,7 +12,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import "../globals.css";
 
-// ... keep fonts ...
+
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -25,7 +25,14 @@ const oswald = Oswald({
   display: "swap",
 });
 
-// ... wait, metadata can also be generated dynamically with `generateMetadata`, but for now I'll just change the layout.
+// Viewport — must be a separate export in Next.js App Router
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#000000",
+};
 
 export async function generateMetadata({ 
   params 

@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: auto;
+  overflow-x: hidden; /* iOS fix: overflow-x on html not body */
 }
 
 body {
@@ -35,7 +36,9 @@ body {
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* NOTE: Do NOT put overflow-x:hidden on body — breaks position:fixed on iOS Safari */
+  min-height: 100vh;
+  min-height: -webkit-fill-available; /* iOS viewport height fix */
 }
 
 /* Global grid structure helper */

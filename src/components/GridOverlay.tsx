@@ -7,7 +7,7 @@ export function GridOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-[200] pointer-events-none select-none"
+      className="fixed inset-0 z-[10] pointer-events-none select-none"
       style={{ mixBlendMode: "overlay" }}
     >
       <div className="relative h-full max-w-[1920px] mx-auto px-6 md:px-10">
