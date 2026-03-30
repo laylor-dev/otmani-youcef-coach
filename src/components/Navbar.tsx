@@ -216,29 +216,23 @@ export function Navbar() {
           aria-expanded={menuOpen}
           onClick={toggleMenu}
           onTouchEnd={handleHamburgerTouch}
-          className="md:hidden"
+          className="md:hidden flex items-center justify-center flex-shrink-0"
           style={{
             position: "relative",
             zIndex: 200,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             width: 48,
             height: 48,
             minWidth: 48,
             minHeight: 48,
             background: "rgba(0,0,0,0.7)",
             border: "1px solid rgba(255,255,255,0.15)",
-            borderRadius: 0,
             cursor: "pointer",
-            /* iOS Safari critical fixes */
             WebkitTapHighlightColor: "transparent",
             WebkitAppearance: "none",
             touchAction: "manipulation",
             userSelect: "none",
             WebkitUserSelect: "none",
             pointerEvents: "auto",
-            flexShrink: 0,
             outline: "none",
             padding: 0,
           }}
