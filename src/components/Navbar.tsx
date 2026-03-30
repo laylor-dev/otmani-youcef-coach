@@ -2,9 +2,9 @@
 
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useTranslations, useLocale } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight, Globe } from "lucide-react";
+import { ArrowRight, Globe } from "lucide-react";
 import clsx from "clsx";
 
 const NAV_LINKS = [
@@ -35,11 +35,31 @@ export function Navbar() {
     setLangOpen(false);
   };
 
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   // Close lang dropdown on outside click
   useEffect(() => {
@@ -56,13 +76,15 @@ export function Navbar() {
 
   return (
     <>
-      <motion.nav
+      {/* NAV BAR */}
+      <nav
         className={clsx(
           "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 transition-all duration-500",
           scrolled
             ? "py-3 bg-black/80 backdrop-blur-xl border-b border-white/5"
             : "py-5 bg-transparent"
         )}
+        style={{ WebkitBackdropFilter: scrolled ? "blur(20px)" : "none" }}
       >
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2 group">
@@ -109,7 +131,7 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* CTA + LANG SWITCHER */}
+        {/* CTA + LANG SWITCHER (desktop) */}
         <div className="hidden md:flex items-center gap-3">
           {/* Language Switcher */}
           <div className="relative">
@@ -159,95 +181,219 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* MOBILE TOGGLE */}
+        {/* MOBILE HAMBURGER BUTTON — plain button, no framer-motion wrapper */}
         <button
-          className="md:hidden z-[1001] w-10 h-10 flex items-center justify-center border border-white/10 rounded-lg bg-black/50 backdrop-blur-md cursor-pointer pointer-events-auto active:scale-95"
-          style={{ WebkitBackdropFilter: 'blur(12px)' }}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          id="mobile-menu-toggle"
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={toggleMenu}
+          className="md:hidden relative z-[200] flex items-center justify-center"
+          style={{
+            width: 44,
+            height: 44,
+            background: "rgba(0,0,0,0.6)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            borderRadius: 8,
+            cursor: "pointer",
+            WebkitTapHighlightColor: "transparent",
+            touchAction: "manipulation",
+            userSelect: "none",
+            flexShrink: 0,
+          }}
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {menuOpen ? (
-              <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                <X size={18} className="text-white" />
-              </motion.span>
-            ) : (
-              <motion.span key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
-                <Menu size={18} className="text-white" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
-      </motion.nav>
-
-      {/* MOBILE FULLSCREEN MENU */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[100] bg-black flex flex-col items-start justify-center px-8"
+          {/* Hamburger / X drawn in pure CSS — no animation library */}
+          <span
+            aria-hidden="true"
+            style={{
+              display: "block",
+              position: "relative",
+              width: 20,
+              height: 14,
+            }}
           >
-            {/* Red line accent */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF2A2A] to-transparent" />
+            {/* Top bar */}
+            <span
+              style={{
+                position: "absolute",
+                left: 0,
+                top: menuOpen ? "50%" : 0,
+                width: "100%",
+                height: 2,
+                background: "#fff",
+                borderRadius: 2,
+                transform: menuOpen ? "translateY(-50%) rotate(45deg)" : "none",
+                transition: "top 0.25s, transform 0.25s",
+              }}
+            />
+            {/* Middle bar */}
+            <span
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "50%",
+                width: "100%",
+                height: 2,
+                background: "#fff",
+                borderRadius: 2,
+                transform: "translateY(-50%)",
+                opacity: menuOpen ? 0 : 1,
+                transition: "opacity 0.15s",
+              }}
+            />
+            {/* Bottom bar */}
+            <span
+              style={{
+                position: "absolute",
+                left: 0,
+                bottom: menuOpen ? "50%" : 0,
+                width: "100%",
+                height: 2,
+                background: "#fff",
+                borderRadius: 2,
+                transform: menuOpen ? "translateY(50%) rotate(-45deg)" : "none",
+                transition: "bottom 0.25s, transform 0.25s",
+              }}
+            />
+          </span>
+        </button>
+      </nav>
 
-            <nav className="flex flex-col gap-2 w-full">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.key}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      {/* MOBILE FULL-SCREEN MENU OVERLAY */}
+      {menuOpen && (
+        <div
+          id="mobile-menu-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 150,
+            background: "#000",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            padding: "0 2rem",
+            overflowY: "auto",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {/* Red accent line */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: 2,
+              background: "linear-gradient(to right, #FF2A2A, transparent)",
+            }}
+          />
+
+          {/* CLOSE BUTTON — inside the overlay for accessibility */}
+          <button
+            id="mobile-menu-close"
+            type="button"
+            aria-label="Close menu"
+            onClick={closeMenu}
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 24,
+              width: 44,
+              height: 44,
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 8,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              WebkitTapHighlightColor: "transparent",
+              touchAction: "manipulation",
+            }}
+          >
+            {/* X icon */}
+            <span style={{ position: "relative", display: "block", width: 18, height: 18 }}>
+              <span
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  margin: "auto",
+                  width: "100%",
+                  height: 2,
+                  background: "#fff",
+                  borderRadius: 2,
+                  transform: "rotate(45deg)",
+                }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  margin: "auto",
+                  width: "100%",
+                  height: 2,
+                  background: "#fff",
+                  borderRadius: 2,
+                  transform: "rotate(-45deg)",
+                }}
+              />
+            </span>
+          </button>
+
+          {/* NAV LINKS */}
+          <nav style={{ display: "flex", flexDirection: "column", gap: 0, width: "100%" }}>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.key}
+                href={link.href}
+                onClick={closeMenu}
+                className={clsx(
+                  "flex items-center justify-between py-5 border-b font-primary font-black uppercase tracking-tight group transition-colors",
+                  pathname === link.href
+                    ? "text-[#FF2A2A] border-[#FF2A2A]/20"
+                    : "text-white/50 hover:text-white border-white/5"
+                )}
+                style={{ fontSize: "clamp(1.75rem, 8vw, 3rem)" }}
+              >
+                {t(link.key)}
+                <ArrowRight
+                  className="opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0"
+                  size={20}
+                />
+              </Link>
+            ))}
+          </nav>
+
+          {/* BOTTOM: lang switcher + tagline */}
+          <div style={{ marginTop: 48, display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={{ display: "flex", gap: 8 }}>
+              {LOCALES.map((l) => (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => switchLocale(l.code)}
+                  style={{ WebkitTapHighlightColor: "transparent", touchAction: "manipulation" }}
+                  className={clsx(
+                    "px-4 py-2 text-[10px] font-primary font-bold tracking-[0.2em] uppercase border transition-colors",
+                    locale === l.code
+                      ? "border-[#FF2A2A] text-[#FF2A2A]"
+                      : "border-white/10 text-neutral-600 hover:text-white hover:border-white/30"
+                  )}
                 >
-                  <Link
-                    href={link.href}
-                    className={clsx(
-                      "flex items-center justify-between py-5 border-b font-primary font-black uppercase text-3xl md:text-5xl tracking-tight group transition-colors",
-                      pathname === link.href
-                        ? "text-[#FF2A2A] border-[#FF2A2A]/20"
-                        : "text-white/50 hover:text-white border-white/5"
-                    )}
-                  >
-                    {t(link.key)}
-                    <ArrowRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0" />
-                  </Link>
-                </motion.div>
+                  {l.label}
+                </button>
               ))}
-            </nav>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-12 flex flex-col gap-4"
-            >
-              {/* Mobile language switcher */}
-              <div className="flex gap-2">
-                {LOCALES.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => switchLocale(l.code)}
-                    className={clsx(
-                      "px-4 py-2 text-[10px] font-primary font-bold tracking-[0.2em] uppercase border transition-colors",
-                      locale === l.code
-                        ? "border-[#FF2A2A] text-[#FF2A2A]"
-                        : "border-white/10 text-neutral-600 hover:text-white hover:border-white/30"
-                    )}
-                  >
-                    {l.label}
-                  </button>
-                ))}
-              </div>
-              <p className="text-[10px] font-primary tracking-[0.3em] text-neutral-700 uppercase">
-                YouOtmani · Elite Performance Coaching · Alger, DZ
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+            <p className="text-[10px] font-primary tracking-[0.3em] text-neutral-700 uppercase">
+              YouOtmani · Elite Performance Coaching · Alger, DZ
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }
