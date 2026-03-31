@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
@@ -16,6 +16,8 @@ const OFFERS = [
     icon: Shield,
     price: { "3": "18 000", "6": "32 000" },
     originalPrice: { "3": "24 000", "6": "48 000" },
+    priceEur: { "3": "120", "6": "200" },
+    originalPriceEur: { "3": "160", "6": "260" },
     desc: "L'essentiel pour démarrer avec structure et précision.",
     features: [
       "Programme d'entraînement personnalisé",
@@ -32,6 +34,8 @@ const OFFERS = [
     icon: Zap,
     price: { "3": "25 000", "6": "45 000" },
     originalPrice: { "3": "35 000", "6": "70 000" },
+    priceEur: { "3": "160", "6": "300" },
+    originalPriceEur: { "3": "220", "6": "400" },
     desc: "Un accompagnement plus poussé, plus réactif, et plus précis.",
     features: [
       "Programme d'entraînement évolutif",
@@ -41,7 +45,7 @@ const OFFERS = [
       "Analyse photo mensuelle",
     ],
     highlight: true,
-    badge: "Populaire",
+    badge: "popular",
   },
   {
     target: "vip",
@@ -49,6 +53,8 @@ const OFFERS = [
     icon: Star,
     price: { "3": "40 000", "6": "70 000" },
     originalPrice: { "3": "60 000", "6": "120 000" },
+    priceEur: { "3": "250", "6": "400" },
+    originalPriceEur: { "3": "350", "6": "550" },
     desc: "L'accompagnement le plus complet qu'un coach puisse offrir.",
     features: [
       "Programme 100% personnalisé & évolutif",
@@ -61,13 +67,16 @@ const OFFERS = [
       "Accompagnement performance & transformation",
     ],
     highlight: false,
-    badge: "Élite",
+    badge: "elite",
   },
 ];
 
 export default function PricingPage() {
   const t = useTranslations("Pricing");
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [duration, setDuration] = useState<"3" | "6">("3");
+  const [currency, setCurrency] = useState<"DZD" | "EUR">("DZD");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<typeof OFFERS[0] | null>(null);
   
@@ -129,14 +138,13 @@ export default function PricingPage() {
               className="text-center"
             >
               <span className="text-[#FF2A2A] font-primary tracking-[0.25em] font-bold text-xs uppercase">
-                Investis dans ton Physical
+                {t("invest_label")}
               </span>
               <h1 className="mt-4 text-4xl md:text-6xl lg:text-7xl font-primary font-black uppercase tracking-tight text-white leading-none">
-                Offres <span className="text-neutral-600">Coaching</span>
+                {t("page_title")} <span className="text-neutral-600">{t("page_title2")}</span>
               </h1>
               <p className="max-w-lg mx-auto mt-6 text-neutral-400 leading-relaxed">
-                Chaque euro investi dans ton coaching est un multiplicateur de résultats.
-                Choisis ton niveau d'engagement.
+                {t("page_desc")}
               </p>
               <p className="text-neutral-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mt-6">
                 {t("subtext")}
@@ -144,37 +152,66 @@ export default function PricingPage() {
             </motion.div>
           </div>
 
-          {/* DURATION TOGGLE */}
+          {/* DURATION & CURRENCY TOGGLE */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-16 inline-flex items-center p-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl relative"
+            className="mt-16 flex flex-col sm:flex-row items-center gap-6"
           >
-            <motion.div
-              layoutId="duration-bg"
-              className="absolute h-[calc(100%-12px)] w-[calc(50%-6px)] bg-[#FF2A2A] rounded-xl"
-              animate={{ x: duration === "3" ? 0 : "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            />
-            <button
-              onClick={() => setDuration("3")}
-              className={clsx(
-                "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
-                duration === "3" ? "text-white" : "text-neutral-500 hover:text-white"
-              )}
-            >
-              {t("months_3")}
-            </button>
-            <button
-              onClick={() => setDuration("6")}
-              className={clsx(
-                "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
-                duration === "6" ? "text-white" : "text-neutral-500 hover:text-white"
-              )}
-            >
-              {t("months_6")}
-            </button>
+            <div className="inline-flex items-center p-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl relative">
+              <motion.div
+                layoutId="duration-bg"
+                className="absolute h-[calc(100%-12px)] w-[calc(50%-6px)] bg-[#FF2A2A] rounded-xl"
+                animate={{ x: duration === "3" ? 0 : "100%" }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+              <button
+                onClick={() => setDuration("3")}
+                className={clsx(
+                  "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
+                  duration === "3" ? "text-white" : "text-neutral-500 hover:text-white"
+                )}
+              >
+                {t("months_3")}
+              </button>
+              <button
+                onClick={() => setDuration("6")}
+                className={clsx(
+                  "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
+                  duration === "6" ? "text-white" : "text-neutral-500 hover:text-white"
+                )}
+              >
+                {t("months_6")}
+              </button>
+            </div>
+
+            <div className="inline-flex items-center p-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl relative">
+              <motion.div
+                layoutId="currency-bg"
+                className="absolute h-[calc(100%-12px)] w-[calc(50%-6px)] bg-[#FF2A2A] rounded-xl"
+                animate={{ x: currency === "DZD" ? 0 : "100%" }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+              <button
+                onClick={() => setCurrency("DZD")}
+                className={clsx(
+                  "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
+                  currency === "DZD" ? "text-white" : "text-neutral-500 hover:text-white"
+                )}
+              >
+                DZD
+              </button>
+              <button
+                onClick={() => setCurrency("EUR")}
+                className={clsx(
+                  "relative z-10 px-8 py-3 text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors",
+                  currency === "EUR" ? "text-white" : "text-neutral-500 hover:text-white"
+                )}
+              >
+                EUR
+              </button>
+            </div>
           </motion.div>
 
           {/* BENTO GRID */}
@@ -203,19 +240,19 @@ export default function PricingPage() {
                         ? "bg-[#FF2A2A] text-white"
                         : "bg-white/10 text-white"
                     )}>
-                      {offer.badge}
+                      {offer.badge === 'popular' ? t('badge_popular') : t('badge_elite')}
                     </div>
                   )}
 
                   {/* Icon + Name */}
-                  <div className="flex items-center gap-4 mb-8">
+                  <div className={clsx("flex items-center gap-4 mb-8", isRTL && "flex-row-reverse text-right")}>
                     <div className={clsx(
-                      "p-3 rounded-xl",
+                      "p-3 rounded-xl shrink-0",
                       offer.highlight ? "bg-[#FF2A2A]/15 text-[#FF2A2A]" : "bg-white/8 text-white"
                     )}>
                       <offer.icon size={22} />
                     </div>
-                    <div>
+                    <div className={isRTL ? "text-right" : ""}>
                       <h3 className="text-lg font-primary font-black uppercase tracking-wider text-white">
                         {offer.name}
                       </h3>
@@ -232,19 +269,19 @@ export default function PricingPage() {
                       transition={{ duration: 0.3 }}
                       className="flex flex-col gap-1.5"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className={clsx("flex items-center gap-3", isRTL ? "justify-end" : "")} dir="ltr">
                         <span className="text-xl md:text-2xl font-primary font-bold text-white/30 line-through decoration-[#FF2A2A] decoration-2">
-                          {offer.originalPrice[duration]} DA
+                          {currency === "DZD" ? offer.originalPrice[duration] : offer.originalPriceEur[duration]} {currency === "DZD" ? "DA" : "€"}
                         </span>
                         <div className="px-2 py-0.5 bg-[#FF2A2A]/20 text-[#FF2A2A] text-[10px] font-bold tracking-[0.2em] uppercase border border-[#FF2A2A]/30">
-                          -{(100 - (parseInt(offer.price[duration].replace(" ", "")) / parseInt(offer.originalPrice[duration].replace(" ", "")) * 100)).toFixed(0)}%
+                          -{(100 - (parseInt((currency === "DZD" ? offer.price[duration] : offer.priceEur[duration]).replace(" ", "")) / parseInt((currency === "DZD" ? offer.originalPrice[duration] : offer.originalPriceEur[duration]).replace(" ", "")) * 100)).toFixed(0)}%
                         </div>
                       </div>
-                      <div className="flex items-baseline gap-2 mt-1">
+                      <div className={clsx("flex items-baseline gap-2 mt-1", isRTL ? "justify-end" : "")} dir="ltr">
                         <span className="text-3xl md:text-5xl font-primary font-black text-white">
-                          {offer.price[duration]} DA
+                          {currency === "DZD" ? offer.price[duration] : offer.priceEur[duration]} {currency === "DZD" ? "DA" : "€"}
                         </span>
-                        <span className="text-neutral-500 font-primary text-xs uppercase tracking-widest font-bold">/ {duration} mois</span>
+                        <span className="text-neutral-500 font-primary text-xs uppercase tracking-widest font-bold">/ {duration} {t("months_label")}</span>
                       </div>
                     </motion.div>
                   </div>
@@ -252,9 +289,9 @@ export default function PricingPage() {
                   <div className="h-px w-full bg-white/8 mb-8" />
 
                   {/* Features */}
-                  <ul className="flex-1 space-y-3.5 mb-10">
+                  <ul className={clsx("flex-1 space-y-3.5 mb-10", isRTL && "text-right")}>
                     {offer.features.map((f, i) => (
-                      <li key={i} className="flex gap-3 items-start">
+                      <li key={i} className={clsx("flex gap-3 items-start", isRTL && "flex-row-reverse")}>
                         <Check
                           size={16}
                           className={clsx("shrink-0 mt-0.5", offer.highlight ? "text-[#FF2A2A]" : "text-neutral-500")}
@@ -264,7 +301,6 @@ export default function PricingPage() {
                     ))}
                   </ul>
 
-                  {/* CTA */}
                   <button
                     onClick={() => handleSelect(offer)}
                     className={clsx(
@@ -274,7 +310,7 @@ export default function PricingPage() {
                         : "bg-transparent border-white/15 text-white hover:bg-white hover:text-black hover:border-white"
                     )}
                   >
-                    Sélectionner
+                    {t("select")}
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 </MagneticCard>
@@ -289,7 +325,7 @@ export default function PricingPage() {
             viewport={{ once: true }}
             className="mt-16 text-center text-neutral-600 text-sm"
           >
-            <p>Satisfaction garantie ✦ Résultats prouvés ✦ Premier bilan offert</p>
+            <p>{t("guarantee")}</p>
           </motion.div>
 
         </div>
@@ -298,7 +334,7 @@ export default function PricingPage() {
       <ClientIntakeModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        planName={selectedPlan ? `${selectedPlan.name} · ${selectedPlan.price[duration]} DA / ${duration} mois` : ""}
+        planName={selectedPlan ? `${selectedPlan.name} · ${currency === 'DZD' ? selectedPlan.price[duration] : selectedPlan.priceEur![duration]} ${currency === 'DZD' ? 'DA' : '€'} / ${duration} ${t("months_label")}` : ""}
       />
     </main>
   );

@@ -125,7 +125,7 @@ function Step1({ data, update, t }: { data: IntakeData; update: (k: keyof Intake
             ))}
           </div>
         </FieldWrapper>
-        <FieldWrapper label={t("country")} required>
+        <FieldWrapper label={t("country")}>
           <input type="text" className={inputCls} placeholder="Algérie…" value={data.country} onChange={e => update("country", e.target.value)} />
         </FieldWrapper>
       </div>
@@ -192,7 +192,7 @@ function Step3({ data, setFile, t }: { data: IntakeData; setFile: (k: "frontPic"
 // ─── Validators ───────────────────────────────────────────────────────────────
 
 function isStep1Valid(d: IntakeData) {
-  return !!d.name.trim() && !!d.whatsapp.trim() && !!d.age && !!d.gender && !!d.country.trim();
+  return !!d.name.trim() && !!d.whatsapp.trim() && !!d.age && !!d.gender;
 }
 function isStep2Valid(d: IntakeData) {
   return !!d.weight && !!d.height && !!d.goal;
@@ -274,7 +274,13 @@ export default function ClientIntakeModal({ isOpen, onClose, planName }: Props) 
       await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, plan: planName }),
+        body: JSON.stringify({ 
+          ...data, 
+          plan: planName,
+          photo_front: frontUrl,
+          photo_side: sideUrl,
+          photo_back: backUrl
+        }),
       }).catch(e => console.warn("Email send failed (non-critical):", e));
 
       setStatus("success");

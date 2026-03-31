@@ -14,10 +14,10 @@
     "shatter_text": "Shatter Limits?"
   },
   "Bio": {
-    "cert_1": "Certified Fitness Coach (EREPS Level 3 and Level 4)",
-    "cert_2": "(EuropeActive – Sports en People, Netherlands)",
-    "cert_3": "Master in Therapeutic Nutrition, Researcher in Nutrition & Supplements, Biochemistry Professor",
-    "description": "Former Bodybuilding Champion. I combine field experience with a scientific approach for physical transformation, sports nutrition, body recomposition, and the optimization of performance and health.",
+    "cert_1": "Performance and physical transformation coach.",
+    "cert_2": "EuropeActive graduate (EREPS Level 3 & 4) – Sport & People Academy.",
+    "cert_3": "Holder of a Master's in therapeutic nutrition and biochemistry lecturer.",
+    "description": "Physical transformation, performance and health through a scientific approach and personalized coaching.",
     "contact_email_label": "Professional Contact"
   },
   "Manifesto": {
@@ -58,9 +58,17 @@
     "success_p": "Get ready. Your journey starts within 24 hours.",
     "first_name": "First Name",
     "last_name": "Last Name",
-    "email": "Email",
+    "phone": "Phone Number",
+    "email": "Email (optional)",
     "goal_label": "Main Goal",
+    "goal_loss": "Weight Loss & Recomp",
+    "goal_muscle": "Muscle Gain",
+    "goal_competition": "Competition Prep",
+    "goal_performance": "Sports Performance",
+    "goal_pb": "Peanut Butter Order",
+    "goal_other": "Other",
     "why_you": "Why you?",
+    "why_you_placeholder": "Level, motivation, constraints...",
     "submit": "Submit Application",
     "direct_channels": "Direct Channels",
     "location_label": "Location",
@@ -69,28 +77,36 @@
     "response_time": "Under 24 Hours"
   },
   "Pricing": {
+    "invest_label": "Invest in your body",
+    "page_title": "Coaching",
+    "page_title2": "Offers",
+    "page_desc": "Every euro invested in your coaching is a multiplier of results. Choose your level of commitment.",
     "title_line1": "Choose Your",
     "title_line2": "Protocol.",
     "subtext": "Access to elite expertise. No compromises, just results.",
     "duration_label": "Duration",
     "months_3": "3 Months",
     "months_6": "6 Months",
+    "months_label": "months",
     "select": "Select",
+    "guarantee": "Satisfaction guaranteed ✔︎ Proven results ✔︎ First assessment free",
+    "badge_popular": "Popular",
+    "badge_elite": "Elite",
     "plans": {
       "ordinaire": {
-        "name": "Standard Pack",
+        "name": "Standard Offer",
         "desc": "The essentials to start your transformation with the basics of YouOtmani coaching.",
-        "features": ["Training Program", "Nutrition Plan", "Email Support", "Mobile Access"]
+        "features": ["Training Program", "Nutrition Plan", "Check-up every two weeks", "Mobile Access"]
       },
       "golden": {
-        "name": "Golden Pack",
+        "name": "Gold Offer",
         "desc": "The standard of excellence. Intensive monitoring for fast and lasting results.",
-        "features": ["Everything in Standard", "Weekly Adjustments", "24/7 WhatsApp Support", "Video Check-ins"]
+        "features": ["Everything in Standard", "Weekly check-up", "24/7 WhatsApp Support", "Video Check-ins"]
       },
       "elite": {
-        "name": "Elite Pack",
+        "name": "Premium Offer",
         "desc": "The ultimate experience. Total access to my methodology and priority daily follow-ups.",
-        "features": ["Everything in Golden", "Biochemical Analysis", "Daily VIP Support", "Private Masterclasses"]
+        "features": ["Everything in Gold", "Biochemical Analysis", "Daily check-up every day of the week", "Private Masterclasses"]
       }
     }
   },
@@ -129,9 +145,9 @@
     "notesPlaceholder": "Anything else you'd like to share…",
     "photoInstruction": "Please upload 3 photos (front, side, back) so the coach can assess your current physique.",
     "photoOptionalFemale": "Photos are optional for women — you may skip if uncomfortable.",
-    "front": "Front",
-    "side": "Side",
-    "back": "Back",
+    "front": "Front Pic",
+    "side": "Side Pic",
+    "back": "Back Pic",
     "backBtn": "Back",
     "next": "Next",
     "submit": "Submit",
@@ -141,5 +157,69 @@
     "errorMsg": "Something went wrong. Please try again.",
     "retry": "Try Again",
     "close": "Close"
+  },
+  "Transformations": {
+    "badge": "Wall of Performance",
+    "title_line1": "Real Humans.",
+    "title_line2": "Real Results.",
+    "subtitle": "Every transformation is living proof that science combined with discipline never lies. Here is the elite of my athletes.",
+    "stat_transformations": "Transformations",
+    "stat_engagement": "Engagement",
+    "stat_excuses": "Excuses",
+    "stat_zero": "Zero",
+    "gallery_badge": "Hall of Fame",
+    "gallery_title": "Success Stories.",
+    "gallery_sub": "Exceptional results, built to measure. A selection of recent transformations from our elite athletes.",
+    "view_protocol": "View Protocol",
+    "case_study": "Case Study",
+    "duration": "Duration:",
+    "nutrition_protocol": "Nutrition Protocol",
+    "training_split": "Training Split",
+    "supplementation": "Supplementation",
+    "start_protocol": "Start Your Protocol",
+    "showing": "Showing",
+    "of": "of",
+    "load_more": "Load More",
+    "cta_title_line1": "Your Story",
+    "cta_title_line2": "Starts Here.",
+    "cta_sub": "Don't just watch others succeed. Become the one people talk about. Ready for your personalized protocol?",
+    "join_elite": "Join the Elite"
+  },
+  "Product": {
+    "badge_hero": "Limited Edition · 100% Natural",
+    "hero_title1": "The Ultimate",
+    "hero_title2": "Peanut Butter.",
+    "hero_desc": "30g of protein per 100g, 100% cold-pressed peanuts. No sugar, no palm oil, no additives – just the fuel your body deserves.",
+    "brand_badge": "By YouOtmani Coaching",
+    "product_title1": "No Nonsense.",
+    "product_title2": "100% Results.",
+    "product_desc": "30g of protein per 100g, 100% cold-pressed peanuts. No sugar, no palm oil, no additives – just the fuel your body deserves.",
+    "macro_protein": "Protein",
+    "macro_fat": "Fats",
+    "macro_calories": "Calories",
+    "macro_palm": "Palm Oil",
+    "macro_natural": "100% Natural",
+    "cta_order": "Order Now",
+    "delivery": "✔ Delivery across Algeria · ✔ Limited Stock"
+  },
+  "OrderModal": {
+    "badge_coaching": "Coaching Offer",
+    "badge_product": "Elite Product",
+    "label_name": "Full Name",
+    "placeholder_name": "Youcef Otmani",
+    "label_phone": "Phone",
+    "placeholder_phone": "05 00 00 00 00",
+    "label_wilaya": "Delivery Wilaya",
+    "label_quantity": "Quantity (Jars)",
+    "label_notes": "Notes (Optional)",
+    "placeholder_notes": "Address details or questions...",
+    "btn_loading": "Processing...",
+    "btn_submit": "Confirm Order",
+    "success_title": "Order Received!",
+    "success_message1": "Thank you",
+    "success_message2": "I will get back to you by phone at",
+    "success_message3": "within 24H to finalize details.",
+    "btn_close": "Close",
+    "error_alert": "An error occurred. Please try again."
   }
 }

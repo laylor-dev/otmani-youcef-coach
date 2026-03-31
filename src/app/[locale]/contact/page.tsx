@@ -6,35 +6,59 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const GOALS = [
-  "Weight Loss & Recomp",
-  "Muscle Gain",
-  "Competition Prep",
-  "Sports Performance",
-  "Elite Peanut Butter Order",
-  "Other",
-];
-
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const t = useTranslations("Contact");
 
+  const GOALS = [
+    t("goal_loss"),
+    t("goal_muscle"),
+    t("goal_competition"),
+    t("goal_performance"),
+    t("goal_pb"),
+    t("goal_other"),
+  ];
+
   const copyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText("contact@youotmani.dz");
+    navigator.clipboard.writeText("youcef.otmani.pt@gmail.com");
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      first_name: formData.get("first_name"),
+      last_name: formData.get("last_name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      goal: formData.get("goal"),
+      why_you: formData.get("why_you"),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error('Failed to send message');
       setSubmitted(true);
-    }, 2000);
+    } catch (error) {
+      console.error(error);
+      alert("Une erreur s'est produite. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,17 +105,23 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("first_name")}</label>
-                  <input type="text" required placeholder="Youcef" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
+                  <input type="text" name="first_name" required placeholder="Youcef" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("last_name")}</label>
-                  <input type="text" required placeholder="Otmani" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
+                  <input type="text" name="last_name" required placeholder="Otmani" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("email")}</label>
-                <input type="email" required placeholder="ton@email.com" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("phone")}</label>
+                  <input type="tel" name="phone" required placeholder="05 00 00 00 00" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("email")}</label>
+                  <input type="email" name="email" placeholder="ton@email.com" className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors" />
+                </div>
               </div>
 
               <div className="space-y-4">
@@ -108,7 +138,7 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">{t("why_you")}</label>
-                <textarea rows={3} placeholder="Niveau, motivation, contraintes..." className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors resize-none" />
+                <textarea name="why_you" rows={3} placeholder={t("why_you_placeholder")} className="w-full bg-transparent border-b-2 border-white/10 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#FF2A2A] transition-colors resize-none" />
               </div>
 
               <button
@@ -189,13 +219,13 @@ export default function ContactPage() {
                   </a>
 
                   <div className="flex items-center gap-5 group relative">
-                    <a href="mailto:contact@youotmani.dz" className="flex items-center gap-5 flex-1">
+                    <a href="mailto:youcef.otmani.pt@gmail.com" className="flex items-center gap-5 flex-1">
                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#FF2A2A] group-hover:border-[#FF2A2A] transition-all">
                         <Mail className="w-5 h-5 text-white" />
                       </div>
                       <div>
                         <div className="text-[10px] font-primary font-bold tracking-[0.2em] text-[#FF2A2A] uppercase">Email</div>
-                        <div className="text-white text-lg font-primary uppercase tracking-wider">contact@youotmani.dz</div>
+                        <div className="text-white text-lg font-primary uppercase tracking-wider">youcef.otmani.pt@gmail.com</div>
                       </div>
                     </a>
                     

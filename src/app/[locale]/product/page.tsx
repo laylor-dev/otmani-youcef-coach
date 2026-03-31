@@ -8,19 +8,21 @@ import { MagneticCard } from "@/components/MagneticCard";
 import { ShoppingBag, ChevronDown, Droplets, FlameKindling, Leaf, Star, Zap, Info, ShieldCheck } from "lucide-react";
 import { OrderModal } from "@/components/OrderModal";
 import { useState } from "react";
-
-const macros = [
-  { icon: ShoppingBag, label: "Protéines", value: "30g", sub: "/ 100g" },
-  { icon: Droplets, label: "Matières Grasses", value: "52g", sub: "/ 100g" },
-  { icon: FlameKindling, label: "Calories", value: "600", sub: "kcal / 100g" },
-  { icon: Leaf, label: "Huile de Palme", value: "0%", sub: "100% Naturel" },
-];
+import { useTranslations } from "next-intl";
 
 export default function ProductPage() {
+  const t = useTranslations("Product");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  const macros = [
+    { icon: ShoppingBag, label: t("macro_protein"), value: "30g", sub: "/ 100g" },
+    { icon: Droplets, label: t("macro_fat"), value: "52g", sub: "/ 100g" },
+    { icon: FlameKindling, label: t("macro_calories"), value: "600", sub: "kcal / 100g" },
+    { icon: Leaf, label: t("macro_palm"), value: "0%", sub: t("macro_natural") },
+  ];
 
   return (
     <main ref={containerRef} className="relative bg-black overflow-hidden">
@@ -51,19 +53,19 @@ export default function ProductPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-[#FF6B00]/30 bg-[#FF6B00]/10 backdrop-blur-md" style={{ '--radius': '9999px' } as any}>
               <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse" style={{ '--radius': '9999px' } as any} />
               <span className="text-xs font-bold tracking-[0.25em] text-[#FF6B00] uppercase">
-                Édition Limitée · 100% Naturel
+                {t("badge_hero")}
               </span>
             </div>
             <h1 className="text-[clamp(3rem,12vw,8rem)] font-primary font-black uppercase tracking-tighter leading-[0.88] text-white">
-              The Ultimate <br />
+              {t("hero_title1")} <br />
               <span className="text-transparent" style={{
                 WebkitTextStroke: "2px #FF6B00",
               }}>
-                Peanut Butter.
+                {t("hero_title2")}
               </span>
             </h1>
             <p className="mt-6 text-neutral-300 text-lg max-w-lg leading-relaxed">
-              Par un coach, pour des athlètes. Fini les produits industriels bourrés d'huile de palme et de sucre caché. Voici la version que vous méritez.
+              {t("hero_desc")}
             </p>
           </motion.div>
         </div>
@@ -134,18 +136,17 @@ export default function ProductPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-white/10 bg-white/5" style={{ '--radius': '9999px' } as any}>
               <Star className="w-3 h-3 text-[#FF6B00]" fill="#FF6B00" />
               <span className="text-[10px] font-bold tracking-[0.25em] text-white uppercase">
-                Par YouOtmani Coaching
+                {t("brand_badge")}
               </span>
             </div>
 
             <h2 className="text-4xl md:text-5xl font-primary font-black uppercase tracking-tight text-white leading-none">
-              Zero Bullshit. <br />
-              <span className="text-[#FF6B00]">100% Résultats.</span>
+              {t("product_title1")} <br />
+              <span className="text-[#FF6B00]">{t("product_title2")}</span>
             </h2>
 
             <p className="mt-6 text-neutral-400 leading-relaxed max-w-md">
-              Formulé pour les athlètes sérieux. Une seule source de protéines : cacahuètes entières pressées à froid.
-              Ni sucre ajouté, ni huile de palme, ni additifs. Juste la performance pure dans chaque cuillère.
+              {t("product_desc")}
             </p>
 
             {/* Macros grid */}
@@ -175,12 +176,12 @@ export default function ProductPage() {
               >
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 <Zap className="w-4 h-4 relative fill-current" />
-                <span className="relative">Commander Maintenant</span>
+                <span className="relative">{t("cta_order")}</span>
               </button>
             </div>
 
             <p className="mt-4 text-[11px] text-neutral-600 tracking-wider">
-              ✦ Livraison partout en Algérie · ✦ Stock limité
+              {t("delivery")}
             </p>
           </motion.div>
         </div>
@@ -189,8 +190,8 @@ export default function ProductPage() {
       <OrderModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        productName="Elite Peanut Butter"
-        productPrice="1 800"
+        productName="Beurre de Cacahuète – Pure Performance"
+        productPrice="570"
         type="product"
       />
     </main>

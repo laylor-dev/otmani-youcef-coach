@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Check, ShoppingBag, Phone, User, MapPin, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import clsx from "clsx";
+import { useTranslations, useLocale } from "next-intl";
 
 const WILAYAS = [
   "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna", 
@@ -29,6 +30,9 @@ interface OrderModalProps {
 }
 
 export function OrderModal({ isOpen, onClose, productName, productPrice, type }: OrderModalProps) {
+  const t = useTranslations("OrderModal");
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -36,16 +40,33 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
     phone: "",
     wilaya: "16 - Alger",
     notes: "",
+    quantity: "1",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false);
+    
+    try {
+      const response = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          productName,
+          type
+        })
+      });
+      
+      if (!response.ok) throw new Error('Order failed');
+      
       setStep(2);
-    }, 2000);
+    } catch (error) {
+      console.error(error);
+      alert(t("error_alert"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const accentColor = type === "product" ? "#FF6B00" : "#FF2A2A";
@@ -84,7 +105,7 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                     {type === "coaching" ? <User size={14} /> : <ShoppingBag size={14} />}
                   </span>
                   <span className="text-[10px] font-primary font-bold tracking-[0.3em] text-neutral-500 uppercase">
-                    {type === "coaching" ? "Offre Coaching" : "Produit Elite"}
+                    {type === "coaching" ? t("badge_coaching") : t("badge_product")}
                   </span>
                 </div>
                 <h2 className="text-2xl font-primary font-black uppercase text-white tracking-tight">
@@ -108,15 +129,15 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">
-                        Nom Complet
+                        {t("label_name")}
                       </label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+                        <User className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                         <input
                           type="text"
                           required
-                          placeholder="Youcef Otmani"
-                          className="w-full bg-white/5 border border-white/10 py-3 pl-10 pr-4 text-white placeholder-white/20 focus:outline-none transition-colors text-sm"
+                          placeholder={t("placeholder_name")}
+                          className="w-full bg-white/5 border border-white/10 py-3 ps-10 pe-4 text-white placeholder-white/20 focus:outline-none transition-colors text-sm"
                           style={{ "--radius": "12px" } as any}
                           onFocus={(e) => (e.target.style.borderColor = accentColor)}
                           onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
@@ -127,15 +148,15 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">
-                        Téléphone
+                        {t("label_phone")}
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+                        <Phone className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                         <input
                           type="tel"
                           required
-                          placeholder="05 00 00 00 00"
-                          className="w-full bg-white/5 border border-white/10 py-3 pl-10 pr-4 text-white placeholder-white/20 focus:outline-none transition-colors text-sm"
+                          placeholder={t("placeholder_phone")}
+                          className="w-full bg-white/5 border border-white/10 py-3 ps-10 pe-4 text-white placeholder-white/20 focus:outline-none transition-colors text-sm"
                           style={{ "--radius": "12px" } as any}
                           onFocus={(e) => (e.target.style.borderColor = accentColor)}
                           onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
@@ -148,15 +169,16 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">
-                      Wilaya de Livraison
+                      {t("label_wilaya")}
                     </label>
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+                      <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                       <select
-                        className="w-full bg-white/5 border border-white/10 py-3 pl-10 pr-4 text-white appearance-none focus:outline-none focus:border-white/20 transition-colors text-sm"
+                        className="w-full bg-white/5 border border-white/10 py-3 ps-10 pe-4 text-white appearance-none focus:outline-none focus:border-white/20 transition-colors text-sm"
                         style={{ "--radius": "12px" } as any}
                         value={formData.wilaya}
                         onChange={(e) => setFormData({ ...formData, wilaya: e.target.value })}
+                        dir={isRTL ? "rtl" : "ltr"}
                       >
                         {WILAYAS.map((w) => (
                           <option key={w} value={w} className="bg-[#0a0a0a] text-white">
@@ -167,16 +189,39 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                     </div>
                   </div>
 
+                  {type === "product" && (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">
+                        {t("label_quantity")}
+                      </label>
+                      <div className="relative">
+                        <ShoppingBag className="absolute start-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+                        <input
+                          type="number"
+                          min="1"
+                          max="99"
+                          required
+                          className="w-full bg-white/5 border border-white/10 py-3 ps-10 pe-4 text-white placeholder-white/20 focus:outline-none transition-colors text-sm"
+                          style={{ "--radius": "12px" } as any}
+                          onFocus={(e) => (e.target.style.borderColor = accentColor)}
+                          onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
+                          value={formData.quantity}
+                          onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <div className="space-y-2">
                     <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">
-                      Notes (Optionnel)
+                      {t("label_notes")}
                     </label>
                     <div className="relative">
-                      <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-neutral-600" />
+                      <MessageSquare className="absolute start-3 top-3 w-4 h-4 text-neutral-600" />
                       <textarea
                         rows={3}
-                        placeholder="Précisions sur l'adresse ou questions..."
-                        className="w-full bg-white/5 border border-white/10 py-3 pl-10 pr-4 text-white placeholder-white/20 focus:outline-none transition-colors resize-none text-sm"
+                        placeholder={t("placeholder_notes")}
+                        className="w-full bg-white/5 border border-white/10 py-3 ps-10 pe-4 text-white placeholder-white/20 focus:outline-none transition-colors resize-none text-sm"
                         style={{ "--radius": "12px" } as any}
                         onFocus={(e) => (e.target.style.borderColor = accentColor)}
                         onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
@@ -198,7 +243,7 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                       "--radius": "12px" 
                     } as any}
                   >
-                    {loading ? "Traitement..." : "Confirmer la Commande"}
+                    {loading ? t("btn_loading") : t("btn_submit")}
                     {!loading && <Check className="w-4 h-4" />}
                   </button>
                 </form>
@@ -212,18 +257,18 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                     <Check className="w-10 h-10" style={{ color: accentColor }} />
                   </div>
                   <h3 className="text-2xl font-primary font-black uppercase text-white mb-3">
-                    Commande Reçue !
+                    {t("success_title")}
                   </h3>
                   <p className="text-neutral-400 max-w-sm mb-10 leading-relaxed">
-                    Merci <span className="text-white font-bold">{formData.name}</span>. <br />
-                    Je reviens vers vous par téléphone au <span className="text-white font-bold">{formData.phone}</span> sous 24H pour finaliser les détails.
+                    {t("success_message1")} <span className="text-white font-bold">{formData.name}</span>. <br />
+                    {t("success_message2")} <span className="text-white font-bold">{formData.phone}</span> {t("success_message3")}
                   </p>
                   <button
                     onClick={onClose}
                     className="h-14 px-10 bg-white/5 border border-white/10 text-white font-primary font-black text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all"
                     style={{ "--radius": "12px" } as any}
                   >
-                    Fermer
+                    {t("btn_close")}
                   </button>
                 </motion.div>
               )}

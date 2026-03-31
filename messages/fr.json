@@ -9,25 +9,25 @@
     "cta_secondary": "Voir les Résultats",
     "scroll_hint": "Découvre le Protocole",
     "lifestyle_title": "Coach & Athlète",
-    "cta_start": "Commencer",
+    "cta_start": "Commencer maintenant",
     "ready_text": "Prêt à",
     "shatter_text": "Repousser les Limites ?"
   },
   "Bio": {
-    "cert_1": "Coach sportif certifié (EREPS Level 3 et Level 4)",
-    "cert_2": "(EuropeActive – Sports en People, Pays-Bas)",
-    "cert_3": "Master en nutrition thérapeutique, chercheur en nutrition et compléments alimentaires, et prof de biochimie",
-    "description": "Ex Champion en musculation, j’associe l’expérience du terrain à une approche scientifique pour la transformation physique, la nutrition sportive, la recomposition corporelle et l’optimisation de la performance et de la santé",
+    "cert_1": "Coach en performance et transformation physique.",
+    "cert_2": "Diplômé EuropeActive (EREPS Level 3 & 4) – Sport & People Academy.",
+    "cert_3": "Titulaire d’un Master en nutrition thérapeutique et enseignant en biochimie.",
+    "description": "Transformation physique, performance et santé grâce à une approche scientifique et un suivi personnalisé.",
     "contact_email_label": "Contact professionnel"
   },
   "Manifesto": {
     "label": "Identité",
     "title_line1": "L'Excellence",
     "title_line2": "Comme Seule Norme",
-    "p1": "Plus qu'un programme, une méthodologie forgée par l'expérience et la science. Chaque mouvement, chaque calorie est optimisé pour un seul but : ton résultat.",
-    "p2": "Spécialisé en nutrition thérapeutique et biochimie, je décode les mécanismes de ton corps pour libérer son plein potentiel athlétique.",
-    "p3": "La discipline n'est pas une option. C'est le prix de la transformation.",
-    "cta": "Voir les Transformations"
+    "p1": "Résultats réels. Méthode structurée. Pas de hasard, seulement une méthode.",
+    "p2": "Transformation physique basée sur la science. Je ne prends pas tout le monde. Je prends des personnes déterminées.",
+    "p3": "Le physique est une conséquence de la discipline. Investis dans ton corps. Tu y vivras toute ta vie.",
+    "cta": "Accéder au programme"
   },
   "Pillars": {
     "label": "Méthodologie",
@@ -47,7 +47,7 @@
     "nutrition": "Nutrition",
     "pricing": "Offres",
     "contact": "Contact",
-    "cta": "Commencer Maintenant"
+    "cta": "Rejoindre le programme"
   },
   "Contact": {
     "label": "Portail d'Application",
@@ -58,9 +58,17 @@
     "success_p": "Prépare-toi. Ton voyage commence sous 24h.",
     "first_name": "Prénom",
     "last_name": "Nom",
-    "email": "Email",
+    "phone": "Numéro de téléphone",
+    "email": "Email (optionnel)",
     "goal_label": "Objectif Principal",
+    "goal_loss": "Perte de poids & Recomp",
+    "goal_muscle": "Prise de masse",
+    "goal_competition": "Préparation compétition",
+    "goal_performance": "Performance sportive",
+    "goal_pb": "Commande Beurre de Cacahuète",
+    "goal_other": "Autre",
     "why_you": "Pourquoi toi ?",
+    "why_you_placeholder": "Niveau, motivation, contraintes...",
     "submit": "Envoyer ma Candidature",
     "direct_channels": "Canaux Directs",
     "location_label": "Localisation",
@@ -69,34 +77,42 @@
     "response_time": "Moins de 24 Heures"
   },
   "Pricing": {
+    "invest_label": "Investis dans ton corps",
+    "page_title": "Offres",
+    "page_title2": "Coaching",
+    "page_desc": "Chaque euro investi dans ton coaching est un multiplicateur de résultats. Choisis ton niveau d'engagement.",
     "title_line1": "Choisis Ton",
     "title_line2": "Protocole.",
     "subtext": "Accès à une expertise d'élite. Pas de compromis, juste des résultats.",
     "duration_label": "Durée",
     "months_3": "3 Mois",
     "months_6": "6 Mois",
+    "months_label": "mois",
     "select": "Sélectionner",
+    "guarantee": "Satisfaction garantie ✔︎ Résultats prouvés ✔︎ Premier bilan offert",
+    "badge_popular": "Populaire",
+    "badge_elite": "Élite",
     "plans": {
       "ordinaire": {
-        "name": "Pack Ordinaire",
+        "name": "Offre standard",
         "desc": "L'essentiel pour démarrer ta transformation avec les bases du coaching YouOtmani.",
-        "features": ["Programme d'entraînement", "Plan nutritionnel", "Support Mail", "Accès Mobile"]
+        "features": ["Programme d'entraînement", "Plan nutritionnel", "Check up chaque deux semaines", "Accès Mobile"]
       },
       "golden": {
-        "name": "Pack Golden",
+        "name": "Offre (gold)",
         "desc": "Le standard de l'excellence. Un suivi intensif pour des résultats rapides et durables.",
-        "features": ["Tout du pack Ordinaire", "Ajustements hebdomadaires", "Support WhatsApp 24/7", "Check-ins Vidéo"]
+        "features": ["Tout de l'Offre standard", "Check up chaque semaine", "Support WhatsApp 24/7", "Check-ins Vidéo"]
       },
       "elite": {
-        "name": "Pack Élite",
+        "name": "Offre premium",
         "desc": "L'expérience ultime. Accès total à ma méthodologie et suivi quotidien prioritaire.",
-        "features": ["Tout du pack Golden", "Analyse Bio-chimique", "Suivi VIP Quotidien", "Masterclasses Privées"]
+        "features": ["Tout de l'Offre (gold)", "Analyse Bio-chimique", "Check up tous les jours de la semaine", "Masterclasses Privées"]
       }
     }
   },
   "Intake": {
     "label": "Formulaire Client",
-    "title": "Commence Ton Parcours",
+    "title": "Commencer le coaching",
     "subtitle": "3 étapes rapides — moins de 2 minutes.",
     "step1": "Toi",
     "step2": "Corps",
@@ -129,9 +145,9 @@
     "notesPlaceholder": "Tout ce que tu veux ajouter…",
     "photoInstruction": "Merci de partager 3 photos (face, côté, dos) pour que le coach puisse évaluer ta morphologie.",
     "photoOptionalFemale": "Les photos sont facultatives pour les femmes — tu peux ignorer si tu préfères.",
-    "front": "Face",
-    "side": "Côté",
-    "back": "Dos",
+    "front": "Photo de Face",
+    "side": "Photo de Profil",
+    "back": "Photo de Dos",
     "backBtn": "Retour",
     "next": "Suivant",
     "submit": "Envoyer",
@@ -141,5 +157,69 @@
     "errorMsg": "Une erreur est survenue. Veuillez réessayer.",
     "retry": "Réessayer",
     "close": "Fermer"
+  },
+  "Transformations": {
+    "badge": "Mur des Champions",
+    "title_line1": "Vrais Athlètes.",
+    "title_line2": "Vrais Résultats.",
+    "subtitle": "Chaque transformation est une preuve vivante que la science alliée à la discipline ne ment jamais. Voici l’élite de mes athlètes.",
+    "stat_transformations": "Transformations",
+    "stat_engagement": "Engagement",
+    "stat_excuses": "Excuses",
+    "stat_zero": "Zéro",
+    "gallery_badge": "Hall of Fame",
+    "gallery_title": "Histoires de Succès.",
+    "gallery_sub": "Des résultats exceptionnels conçus sur mesure. Voici une sélection de transformations récentes.",
+    "view_protocol": "Voir le Protocole",
+    "case_study": "Étude de Cas",
+    "duration": "Durée :",
+    "nutrition_protocol": "Protocole Nutritionnel",
+    "training_split": "Programme d’Entraînement",
+    "supplementation": "Compléments Alimentaires",
+    "start_protocol": "Démarre Ton Protocole",
+    "showing": "Affichage",
+    "of": "sur",
+    "load_more": "Charger Plus",
+    "cta_title_line1": "Ton Histoire",
+    "cta_title_line2": "Commence Ici.",
+    "cta_sub": "Ne regarde pas seulement les autres réussir. Deviens celui que l’on regarde. Prêt pour ton protocole personnalisé ?",
+    "join_elite": "Rejoindre l'Élite"
+  },
+  "Product": {
+    "badge_hero": "Édition Limitée · 100% Naturel",
+    "hero_title1": "The Ultimate",
+    "hero_title2": "Peanut Butter.",
+    "hero_desc": "30 g de protéines / 100 g, 100% cacahouètes pressées à froid. Sans sucre, sans huile de palme, sans additifs – juste la puissance dont votre corps a besoin.",
+    "brand_badge": "Par YouOtmani Coaching",
+    "product_title1": "Zero Bullshit.",
+    "product_title2": "100% Résultats.",
+    "product_desc": "30 g de protéines / 100 g, 100% cacahouètes pressées à froid. Sans sucre, sans huile de palme, sans additifs – juste la puissance dont votre corps a besoin.",
+    "macro_protein": "Protéines",
+    "macro_fat": "Matières Grasses",
+    "macro_calories": "Calories",
+    "macro_palm": "Huile de Palme",
+    "macro_natural": "100% Naturel",
+    "cta_order": "Commander Maintenant",
+    "delivery": "✔ Livraison partout en Algérie · ✔ Stock limité"
+  },
+  "OrderModal": {
+    "badge_coaching": "Offre Coaching",
+    "badge_product": "Produit Elite",
+    "label_name": "Nom Complet",
+    "placeholder_name": "Youcef Otmani",
+    "label_phone": "Téléphone",
+    "placeholder_phone": "05 00 00 00 00",
+    "label_wilaya": "Wilaya de Livraison",
+    "label_quantity": "Quantité (Pots)",
+    "label_notes": "Notes (Optionnel)",
+    "placeholder_notes": "Précisions sur l'adresse ou questions...",
+    "btn_loading": "Traitement...",
+    "btn_submit": "Confirmer la Commande",
+    "success_title": "Commande Reçue !",
+    "success_message1": "Merci",
+    "success_message2": "Je reviens vers vous par téléphone au",
+    "success_message3": "sous 24H pour finaliser les détails.",
+    "btn_close": "Fermer",
+    "error_alert": "Une erreur s'est produite. Veuillez réessayer."
   }
 }

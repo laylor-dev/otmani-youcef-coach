@@ -111,6 +111,7 @@ export function Navbar() {
         style={{
           zIndex: 9999,
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          flexDirection: locale === 'ar' ? 'row-reverse' : 'row',
         }}
       >
         {/* LOGO */}
@@ -136,13 +137,14 @@ export function Navbar() {
         </Link>
 
         {/* DESKTOP LINKS */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.key}
               href={link.href}
               className={clsx(
-                "relative text-xs font-primary font-bold tracking-[0.2em] uppercase transition-colors duration-300",
+                "relative font-primary font-bold uppercase transition-colors duration-300 whitespace-nowrap",
+                locale === 'ar' ? "text-sm tracking-normal" : "text-xs tracking-[0.12em]",
                 pathname === link.href ? "text-white" : "text-neutral-500 hover:text-white"
               )}
             >

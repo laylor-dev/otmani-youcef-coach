@@ -199,6 +199,9 @@ export default function Home() {
             <p className="text-xs md:text-sm text-neutral-500 uppercase tracking-widest leading-relaxed max-w-lg">
               {b("cert_2")}
             </p>
+            <p className="text-xs md:text-sm text-neutral-500 uppercase tracking-widest leading-relaxed max-w-lg">
+              {b("cert_3")}
+            </p>
             <p className="text-base md:text-lg text-neutral-400 max-w-xl leading-relaxed mt-4">
               {b("description")}
             </p>
@@ -461,7 +464,7 @@ export default function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 items-center">
             {[
-              { src: "/coach-3.png", ratio: "aspect-[3/5.5]" },
+              { src: "/lifestyle-2-video.mp4", ratio: "aspect-[3/5.5]" },
               { src: "/lifestyle-1.png", ratio: "aspect-[3/4]" },
               { src: "/lifestyle-2.png", ratio: "aspect-[3/4]" },
               { src: "/lifestyle-video.mp4", ratio: "aspect-[3/5.5]" }

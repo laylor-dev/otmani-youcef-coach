@@ -18,7 +18,7 @@ export function Footer() {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("contact@youotmani.dz");
+    navigator.clipboard.writeText("youcef.otmani.pt@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -148,10 +148,10 @@ export function Footer() {
               <div className="text-sm text-neutral-500 space-y-2 font-primary tracking-wider">
                 <div className="relative group/mail flex items-center gap-2">
                   <a 
-                    href="mailto:contact@youotmani.dz" 
+                    href="mailto:youcef.otmani.pt@gmail.com" 
                     className="hover:text-white transition-colors block uppercase"
                   >
-                    contact@youotmani.dz
+                    youcef.otmani.pt@gmail.com
                   </a>
                   <button 
                     onClick={copyEmail}

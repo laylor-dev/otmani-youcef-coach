@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { X, ArrowRight, Trophy, Target, Zap, Waves } from "lucide-react";
 import { MagneticCard } from "@/components/MagneticCard";
+import { useTranslations } from "next-intl";
 
 export const TRANSFORMATIONS = [
   { id: 1, img: "/transformations/Screenshot 2026-03-29 130937.png", name: "Client 1", result: "-15% Body Fat", time: "16 Weeks", category: "Results", protocol: { title: "Aggressive Cut & Recomp", duration: "16 Weeks", nutrition: "High protein (2.5g/kg), 500 kcal deficit, carb cycling on rest days.", training: "PPL Split (6x/week), progressive overload on compounds + 20 mins Stairmaster.", supplements: "Whey Isolate, Creatine Monohydrate, Omega 3." } },
@@ -27,6 +28,7 @@ export const TRANSFORMATIONS = [
 export default function TransformationsPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
+  const t = useTranslations("Transformations");
   
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedProtocol, setSelectedProtocol] = useState<typeof TRANSFORMATIONS[0] | null>(null);
@@ -52,34 +54,33 @@ export default function TransformationsPage() {
             <div className="inline-flex items-center gap-3 px-4 py-1.5 mb-8 rounded-full border border-[#FF2A2A]/30 bg-[#FF2A2A]/10 backdrop-blur-md">
               <Trophy className="w-3.5 h-3.5 text-[#FF2A2A]" />
               <span className="text-[10px] font-primary font-bold tracking-[0.3em] text-white uppercase">
-                Wall of Performance
+                {t("badge")}
               </span>
             </div>
 
             <h1 className="text-[clamp(2.5rem,10vw,7rem)] font-primary font-black uppercase tracking-tighter leading-[0.85] text-white mb-8">
-              Real Humans. <br />
+              {t("title_line1")} <br />
               <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.4)" }}>
-                Real Results.
+                {t("title_line2")}
               </span>
             </h1>
 
             <p className="text-neutral-400 text-lg md:text-xl max-w-lg leading-relaxed mb-12">
-              Chaque transformation est une preuve vivante que la science alliée à la discipline ne ment jamais. 
-              Voici l'élite de mes athlètes.
+              {t("subtitle")}
             </p>
 
             <div className="flex flex-wrap gap-8 items-center border-t border-white/10 pt-10">
               <div>
                 <div className="text-4xl font-primary font-black text-white">+200</div>
-                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">Transformations</div>
+                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">{t("stat_transformations")}</div>
               </div>
               <div>
                 <div className="text-4xl font-primary font-black text-white">100%</div>
-                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">Engagement</div>
+                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">{t("stat_engagement")}</div>
               </div>
               <div>
-                <div className="text-4xl font-primary font-black text-[#FF2A2A]">Zero</div>
-                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">Excuses</div>
+                <div className="text-4xl font-primary font-black text-[#FF2A2A]">{t("stat_zero")}</div>
+                <div className="text-[10px] text-neutral-500 tracking-widest uppercase mt-1">{t("stat_excuses")}</div>
               </div>
             </div>
           </motion.div>
@@ -99,9 +100,12 @@ export default function TransformationsPage() {
               fill
               className="object-cover object-top grayscale contrast-125 brightness-75"
             />
-            {/* Blending Gradients */}
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-black to-transparent" />
+            {/* Left gradient fade to blend with text side */}
+            <div className="absolute inset-y-0 left-0 w-2/5 bg-gradient-to-r from-black via-black/80 to-transparent" />
+            {/* Bottom fade */}
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent" />
+            {/* Top fade */}
+            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black to-transparent" />
             
             {/* Floating Glow */}
             <motion.div
@@ -119,14 +123,14 @@ export default function TransformationsPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
             <div>
               <span className="text-[#FF2A2A] font-primary font-bold tracking-[0.4em] text-xs uppercase block mb-4">
-                Hall of Fame
+                {t("gallery_badge")}
               </span>
               <h2 className="text-3xl md:text-6xl font-primary font-black uppercase tracking-tighter text-white">
-                Success <span className="text-neutral-700">Stories.</span>
+                {t("gallery_title")} <span className="text-neutral-700"></span>
               </h2>
             </div>
             <p className="text-neutral-500 text-sm max-w-xs md:text-right leading-relaxed font-light">
-              Des résultats exceptionnels conçus sur mesure. Voici une sélection de transformations récentes de nos athlètes élites.
+              {t("gallery_sub")}
             </p>
           </div>
 
@@ -166,7 +170,7 @@ export default function TransformationsPage() {
                       </motion.div>
                       
                       <div className="mt-1 md:mt-2 flex items-center gap-1 md:gap-2 text-[8px] md:text-[13px] font-primary font-bold tracking-[0.1em] md:tracking-[0.2em] text-[#FF2A2A] uppercase">
-                        View Protocol <ArrowRight size={10} className="md:w-[14px] md:h-[14px] w-[10px] h-[10px] group-hover:translate-x-1 transition-transform" />
+                        {t("view_protocol")} <ArrowRight size={10} className="md:w-[14px] md:h-[14px] w-[10px] h-[10px] group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>
@@ -179,7 +183,7 @@ export default function TransformationsPage() {
           {visibleCount < TRANSFORMATIONS.length && (
             <div className="mt-16 flex flex-col items-center justify-center">
               <div className="text-neutral-500 font-primary font-bold tracking-widest text-sm mb-4">
-                Showing {visibleCount} of {TRANSFORMATIONS.length}
+                {t("showing")} {visibleCount} {t("of")} {TRANSFORMATIONS.length}
               </div>
               <div className="w-48 h-1 bg-neutral-800 rounded-full mb-8 overflow-hidden relative">
                 <motion.div 
@@ -193,7 +197,7 @@ export default function TransformationsPage() {
                 onClick={handleLoadMore}
                 className="px-10 py-4 rounded-full border border-white/10 text-white font-primary font-bold uppercase tracking-[0.2em] text-sm hover:bg-white/5 active:scale-95 transition-all"
               >
-                Load More
+                {t("load_more")}
               </button>
             </div>
           )}
@@ -235,20 +239,20 @@ export default function TransformationsPage() {
             <div className="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto">
               <div className="mb-8 border-b border-white/10 pb-8">
                 <span className="inline-block px-3 py-1 bg-[#FF2A2A]/10 text-[#FF2A2A] border border-[#FF2A2A]/20 text-[10px] font-primary font-bold tracking-[0.2em] uppercase rounded-full mb-4">
-                  Case Study
+                  {t("case_study")}
                 </span>
                 <h3 className="text-3xl font-primary font-black uppercase text-white mb-2 leading-none">
                   {selectedProtocol.protocol.title}
                 </h3>
                 <p className="text-neutral-400 text-sm font-semibold tracking-widest uppercase">
-                  Duration: {selectedProtocol.protocol.duration}
+                  {t("duration")} {selectedProtocol.protocol.duration}
                 </p>
               </div>
               
               <div className="space-y-8">
                 <div>
                   <h4 className="flex items-center gap-2 text-white font-primary font-bold tracking-widest uppercase text-sm mb-3">
-                    <Target size={16} className="text-[#FF2A2A]" /> Nutrition Protocol
+                    <Target size={16} className="text-[#FF2A2A]" /> {t("nutrition_protocol")}
                   </h4>
                   <p className="text-neutral-400 text-sm leading-relaxed">
                     {selectedProtocol.protocol.nutrition}
@@ -257,7 +261,7 @@ export default function TransformationsPage() {
                 
                 <div>
                   <h4 className="flex items-center gap-2 text-white font-primary font-bold tracking-widest uppercase text-sm mb-3">
-                    <Zap size={16} className="text-[#FF2A2A]" /> Training Split
+                    <Zap size={16} className="text-[#FF2A2A]" /> {t("training_split")}
                   </h4>
                   <p className="text-neutral-400 text-sm leading-relaxed">
                     {selectedProtocol.protocol.training}
@@ -266,7 +270,7 @@ export default function TransformationsPage() {
 
                 <div>
                   <h4 className="flex items-center gap-2 text-white font-primary font-bold tracking-widest uppercase text-sm mb-3">
-                    <Waves size={16} className="text-[#FF2A2A]" /> Supplementation
+                    <Waves size={16} className="text-[#FF2A2A]" /> {t("supplementation")}
                   </h4>
                   <p className="text-neutral-400 text-sm leading-relaxed">
                     {selectedProtocol.protocol.supplements}
@@ -279,7 +283,7 @@ export default function TransformationsPage() {
                   href="/pricing"
                   className="w-full flex justify-center py-4 bg-[#FF2A2A] text-white font-primary font-bold uppercase tracking-[0.2em] text-sm hover:bg-white hover:text-black transition-all"
                 >
-                  Start Your Protocol
+                  {t("start_protocol")}
                 </Link>
               </div>
             </div>
@@ -300,18 +304,17 @@ export default function TransformationsPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-6xl font-primary font-black uppercase tracking-tighter text-white mb-8">
-                Your Story <br />
-                <span className="text-[#FF2A2A]">Starts Here.</span>
+                {t("cta_title_line1")} <br />
+                <span className="text-[#FF2A2A]">{t("cta_title_line2")}</span>
               </h2>
               <p className="text-neutral-500 text-lg max-w-lg mx-auto mb-12">
-                Ne regarde pas seulement les autres réussir. Deviens celui que l'on regarde.
-                Prêt pour ton protocole personnalisé ?
+                {t("cta_sub")}
               </p>
               <Link
                 href="/pricing"
                 className="group inline-flex h-16 items-center px-12 bg-[#FF2A2A] text-white font-primary font-black text-sm tracking-[0.2em] uppercase rounded-xl hover:bg-white hover:text-black transition-all active:scale-95"
               >
-                Join the Elite
+                {t("join_elite")}
                 <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
