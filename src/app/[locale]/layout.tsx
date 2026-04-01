@@ -108,7 +108,7 @@ export default async function RootLayout({
       className={`${inter.variable} ${oswald.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="font-sans bg-black text-white" suppressHydrationWarning>
+      <body className="font-sans bg-black text-white overflow-x-hidden" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <GridOverlay />
           <ScrollToTop />
