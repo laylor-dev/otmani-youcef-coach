@@ -466,8 +466,8 @@ export default function Home() {
             {[
               { src: "/lifestyle-2-video.mp4", ratio: "aspect-[3/5.5]" },
               { src: "/lifestyle-1.png", ratio: "aspect-[3/4]" },
-              { src: "/lifestyle-2.png", ratio: "aspect-[3/4]" },
-              { src: "/lifestyle-video.mp4", ratio: "aspect-[3/5.5]" }
+              { src: "/lifestyle-3.jpeg", ratio: "aspect-[3/4]" },
+              { src: "/lifestyle-4.jpeg", ratio: "aspect-[3/4]" }
             ].map((media, i) => (
               <motion.div
                 key={i}
