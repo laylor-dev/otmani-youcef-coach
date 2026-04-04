@@ -24,6 +24,7 @@ interface IntakeData {
   frontPic: File | null;
   sidePic: File | null;
   backPic: File | null;
+  address2: string;
 }
 
 interface Props {
@@ -35,7 +36,7 @@ interface Props {
 const initialData: IntakeData = {
   name: "", email: "", whatsapp: "", age: "", gender: "", country: "",
   weight: "", height: "", goal: "muscle", activity: "", healthConditions: "", notes: "",
-  frontPic: null, sidePic: null, backPic: null,
+  frontPic: null, sidePic: null, backPic: null, address2: "",
 };
 
 // ─── Style helpers ──────────────────────────────────────────────────────────
@@ -100,6 +101,17 @@ function ImageUpload({ label, value, onChange }: { label: string; value: File | 
 function Step1({ data, update, t }: { data: IntakeData; update: (k: keyof IntakeData, v: string) => void; t: ReturnType<typeof useTranslations<"Intake">> }) {
   return (
     <div className="space-y-4">
+      {/* Honeypot field to prevent spam */}
+      <div style={{ position: 'absolute', opacity: 0, top: -9999, left: -9999 }} aria-hidden="true">
+        <input
+          type="text"
+          name="address2"
+          tabIndex={-1}
+          autoComplete="off"
+          value={data.address2}
+          onChange={(e) => update("address2", e.target.value)}
+        />
+      </div>
       <div className="grid grid-cols-2 gap-3">
         <FieldWrapper label={t("name")} required>
           <input type="text" className={inputCls} placeholder="Ali Benali" value={data.name} onChange={e => update("name", e.target.value)} />
@@ -236,6 +248,12 @@ export default function ClientIntakeModal({ isOpen, onClose, planName }: Props) 
   };
 
   const handleSubmit = async () => {
+    if (data.address2) {
+      // Honeypot trapped a bot
+      setStatus("success");
+      return;
+    }
+
     setStatus("loading");
     try {
       // Upload photos

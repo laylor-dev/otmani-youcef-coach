@@ -41,10 +41,18 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
     wilaya: "16 - Alger",
     notes: "",
     quantity: "1",
+    address2: "", // honeypot
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (formData.address2) {
+      // Honeypot trapped a bot
+      setStep(2);
+      return;
+    }
+
     setLoading(true);
     
     try {
@@ -126,6 +134,17 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
             <div className="p-8">
               {step === 1 ? (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field to prevent spam */}
+                  <div style={{ position: 'absolute', opacity: 0, top: -9999, left: -9999 }} aria-hidden="true">
+                    <input
+                      type="text"
+                      name="address2"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.address2}
+                      onChange={(e) => setFormData({ ...formData, address2: e.target.value })}
+                    />
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-primary font-bold uppercase tracking-[0.2em] text-neutral-500">

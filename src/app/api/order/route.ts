@@ -5,10 +5,35 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const COACH_EMAIL = 'youcef.otmani.pt@gmail.com';
 
+const rateLimitMap = new Map<string, { count: number, lastReset: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 3;
+
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get('x-forwarded-for') || 'unknown';
+    const now = Date.now();
+    const rlData = rateLimitMap.get(ip) || { count: 0, lastReset: now };
+
+    if (now - rlData.lastReset > RATE_LIMIT_WINDOW) {
+      rlData.count = 1;
+      rlData.lastReset = now;
+    } else {
+      rlData.count += 1;
+    }
+    rateLimitMap.set(ip, rlData);
+
+    if (rlData.count > MAX_REQUESTS) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+
     const body = await req.json();
-    const { name, phone, wilaya, notes, productName, type, quantity } = body;
+    const { name, phone, wilaya, notes, productName, type, quantity, address2 } = body;
+
+    if (address2) {
+      // Honeypot field filled - act like it succeeded to fool bot
+      return NextResponse.json({ success: true, id: 'fake_id' });
+    }
 
     const isProduct = type === 'product';
     const accentColor = isProduct ? '#FF6B00' : '#FF2A2A';
