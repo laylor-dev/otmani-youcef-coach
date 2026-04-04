@@ -191,7 +191,7 @@ export default function ProductPage() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         productName="Beurre de Cacahuète – Pure Performance"
-        productPrice="570"
+        productPrice="550"
         type="product"
       />
     </main>
