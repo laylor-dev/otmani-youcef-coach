@@ -181,7 +181,7 @@ export function Footer() {
           </span>
           <span className="text-[11px] text-neutral-700 tracking-widest uppercase font-primary">
             Developed by <a 
-              href="https://www.instagram.com/youcef.dev_/" 
+              href="https://wa.me/213560684042" 
               target="_blank" 
               rel="noreferrer" 
               className="text-white transition-colors underline decoration-white/20 underline-offset-4"
