@@ -41,38 +41,76 @@ export async function generateMetadata({
   params: Promise<{ locale: string }> 
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  const isArabic = resolvedParams.locale === 'ar';
+  const { locale } = resolvedParams;
   
-  const title = isArabic 
-    ? "يوسف عثماني | التدريب الرياضي الاحترافي" 
-    : "Youcef Otmani | Elite Performance Coaching";
-    
-  const description = isArabic 
-    ? "تدريب شامل يجمع بين العلم، البيانات، والتحليل الحيوي. ارتقِ بأدائك." 
-    : "More than just a program, a methodology forged through experience and science. Unlock your ultimate athletic potential.";
+  const metadataConfig = {
+    ar: {
+      title: "يوسف عثماني | التدريب الرياضي والتحول البدني الاحترافي",
+      description: "تدريب شامل يجمع بين العلم، البيانات، والتحليل الحيوي. ارتقِ بأدائك البدني مع يوسف عثماني، خبير التغذية العلاجية.",
+      siteName: "يوسف عثماني كوتشينج",
+    },
+    en: {
+      title: "Youcef Otmani | Elite Performance & Transformation Coaching",
+      description: "Unlock your ultimate athletic potential through science-driven coaching. Expert nutrition, biomechanics, and personalized protocols by Youcef Otmani.",
+      siteName: "Youcef Otmani Coaching",
+    },
+    fr: {
+      title: "Youcef Otmani | Coaching Performance & Transformation Élite",
+      description: "Optimisez votre potentiel physique grâce à une approche scientifique. Nutrition thérapeutique et protocoles personnalisés par Youcef Otmani.",
+      siteName: "Youcef Otmani Coaching",
+    }
+  };
+
+  const currentMetadata = metadataConfig[locale as keyof typeof metadataConfig] || metadataConfig.en;
+  const baseUrl = "https://youcefotmani.com";
 
   return {
-    title,
-    description,
+    metadataBase: new URL(baseUrl),
+    title: {
+      default: currentMetadata.title,
+      template: `%s | ${currentMetadata.siteName}`
+    },
+    description: currentMetadata.description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        'en': '/en',
+        'fr': '/fr',
+        'ar': '/ar',
+      },
+    },
     openGraph: {
-      title,
-      description,
-      siteName: 'YouOtmani Coaching',
+      title: currentMetadata.title,
+      description: currentMetadata.description,
+      siteName: currentMetadata.siteName,
+      url: `${baseUrl}/${locale}`,
       images: [
         {
-          url: '/hero.png', // Uses the public logo/image
+          url: '/hero.png',
           width: 1200,
           height: 630,
+          alt: currentMetadata.title,
         },
       ],
-      locale: isArabic ? 'ar_DZ' : 'en_US',
+      locale: locale === 'ar' ? 'ar_DZ' : locale === 'fr' ? 'fr_FR' : 'en_US',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: currentMetadata.title,
+      description: currentMetadata.description,
       images: ['/hero.png'], 
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
     icons: {
       icon: '/icon.png',
