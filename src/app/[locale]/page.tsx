@@ -242,7 +242,7 @@ export default function Home() {
           >
             <StatBadge value="+200" label="Athlètes" />
             <StatBadge value="5★" label="Satisfaction" />
-            <StatBadge value="4y+" label="Expérience" />
+            <StatBadge value="14y+" label="Expérience" />
           </motion.div>
         </motion.div>
 
