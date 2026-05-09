@@ -77,6 +77,25 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
     }
   };
 
+  const handleWhatsAppSubmit = () => {
+    if (!formData.name || !formData.phone) {
+      // Small native validation feedback
+      return;
+    }
+
+    const text = `Nouvelle Commande
+Produit : ${productName}
+Type : ${type}
+Nom : ${formData.name}
+Téléphone : ${formData.phone}
+Wilaya : ${formData.wilaya}
+${type === "product" ? `Quantité : ${formData.quantity}\n` : ""}Notes : ${formData.notes || "Aucune"}`;
+
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/213540445141?text=${encodedText}`, "_blank");
+    setStep(2);
+  };
+
   const accentColor = type === "product" ? "#FF6B00" : "#FF2A2A";
   const accentBg = type === "product" ? "rgba(255, 107, 0, 0.1)" : "rgba(255, 42, 42, 0.1)";
 
@@ -250,21 +269,35 @@ export function OrderModal({ isOpen, onClose, productName, productPrice, type }:
                     </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className={clsx(
-                      "group w-full h-14 text-white font-primary font-black text-sm tracking-[0.2em] uppercase transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3",
-                      loading ? "animate-pulse" : "hover:shadow-2xl"
-                    )}
-                    style={{ 
-                      backgroundColor: loading ? `${accentColor}80` : accentColor,
-                      "--radius": "12px" 
-                    } as any}
-                  >
-                    {loading ? t("btn_loading") : t("btn_submit")}
-                    {!loading && <Check className="w-4 h-4" />}
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className={clsx(
+                        "group w-full h-14 text-white font-primary font-black text-sm tracking-[0.2em] uppercase transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3",
+                        loading ? "animate-pulse" : "hover:shadow-2xl"
+                      )}
+                      style={{ 
+                        backgroundColor: loading ? `${accentColor}80` : accentColor,
+                        "--radius": "12px" 
+                      } as any}
+                    >
+                      {loading ? t("btn_loading") : t("btn_submit")}
+                      {!loading && <Check className="w-4 h-4" />}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleWhatsAppSubmit}
+                      className="group w-full h-14 text-white font-primary font-bold text-xs tracking-widest uppercase bg-[#25D366]/10 border border-[#25D366]/30 hover:bg-[#25D366]/20 transition-all flex items-center justify-center gap-2"
+                      style={{ "--radius": "12px" } as any}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                      </svg>
+                      {t("whatsappSubmit")}
+                    </button>
+                  </div>
                 </form>
               ) : (
                 <motion.div

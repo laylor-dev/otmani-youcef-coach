@@ -156,7 +156,8 @@
     "successMsg": "Le Coach Youcef examinera ton profil et te contactera dans les 24h. Prépare-toi.",
     "errorMsg": "Une erreur est survenue. Veuillez réessayer.",
     "retry": "Réessayer",
-    "close": "Fermer"
+    "close": "Fermer",
+    "whatsappSubmit": "Envoyer via WhatsApp"
   },
   "Transformations": {
     "badge": "Mur des Champions",
@@ -220,6 +221,7 @@
     "success_message2": "Je reviens vers vous par téléphone au",
     "success_message3": "sous 24H pour finaliser les détails.",
     "btn_close": "Fermer",
-    "error_alert": "Une erreur s'est produite. Veuillez réessayer."
+    "error_alert": "Une erreur s'est produite. Veuillez réessayer.",
+    "whatsappSubmit": "Commander via WhatsApp"
   }
 }

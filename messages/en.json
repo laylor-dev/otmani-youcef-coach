@@ -156,7 +156,8 @@
     "successMsg": "Coach Youcef will review your profile and contact you within 24 hours. Get ready.",
     "errorMsg": "Something went wrong. Please try again.",
     "retry": "Try Again",
-    "close": "Close"
+    "close": "Close",
+    "whatsappSubmit": "Submit via WhatsApp"
   },
   "Transformations": {
     "badge": "Wall of Performance",
@@ -220,6 +221,7 @@
     "success_message2": "I will get back to you by phone at",
     "success_message3": "within 24H to finalize details.",
     "btn_close": "Close",
-    "error_alert": "An error occurred. Please try again."
+    "error_alert": "An error occurred. Please try again.",
+    "whatsappSubmit": "Order via WhatsApp"
   }
 }

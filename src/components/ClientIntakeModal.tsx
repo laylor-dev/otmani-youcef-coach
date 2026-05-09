@@ -310,6 +310,27 @@ export default function ClientIntakeModal({ isOpen, onClose, planName }: Props) 
 
   const canProceed = step === 0 ? isStep1Valid(data) : step === 1 ? isStep2Valid(data) : isStep3Valid(data);
 
+  const handleWhatsAppSubmit = () => {
+    const text = `Nouvelle demande de coaching (${planName || "Standard"})
+Nom : ${data.name}
+Âge : ${data.age} ans
+WhatsApp : ${data.whatsapp}
+Sexe : ${data.gender === "male" ? "Homme" : "Femme"}
+Pays : ${data.country || "Non spécifié"}
+Poids : ${data.weight} kg
+Taille : ${data.height} cm
+Objectif : ${data.goal}
+Activité : ${data.activity || "Non spécifié"}
+Santé : ${data.healthConditions || "Rien à signaler"}
+Notes : ${data.notes || "Aucune"}
+
+(Je vais envoyer mes photos à la suite de ce message)`;
+
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/213540445141?text=${encodedText}`, "_blank");
+    setStatus("success");
+  };
+
   const STEP_LABELS = [t("step1"), t("step2"), t("step3")];
 
   if (!isOpen) return null;
@@ -439,14 +460,27 @@ export default function ClientIntakeModal({ isOpen, onClose, planName }: Props) 
                     {isRTL ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
                   </button>
                 ) : (
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!canProceed}
-                    className={`flex items-center gap-2 h-11 px-8 text-white font-bold text-xs uppercase tracking-widest transition-all ${canProceed ? "bg-[#FF2A2A] hover:bg-[#FF4444] active:scale-95" : "bg-white/5 text-white/20 cursor-not-allowed"}`}
-                  >
-                    {t("submit")}
-                    {isRTL ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={handleWhatsAppSubmit}
+                      disabled={!canProceed}
+                      className={`flex items-center gap-2 h-11 px-5 text-[#25D366] font-bold text-xs uppercase tracking-widest transition-all border border-[#25D366]/30 ${canProceed ? "bg-[#25D366]/10 hover:bg-[#25D366]/20 active:scale-95" : "opacity-50 cursor-not-allowed"}`}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                      </svg>
+                      {t("whatsappSubmit")}
+                    </button>
+
+                    <button
+                      onClick={handleSubmit}
+                      disabled={!canProceed}
+                      className={`flex items-center gap-2 h-11 px-6 text-white font-bold text-xs uppercase tracking-widest transition-all ${canProceed ? "bg-[#FF2A2A] hover:bg-[#FF4444] active:scale-95" : "bg-white/5 text-white/20 cursor-not-allowed"}`}
+                    >
+                      {t("submit")}
+                      {isRTL ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
+                    </button>
+                  </div>
                 )}
               </div>
             )}
